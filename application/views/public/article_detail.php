@@ -20,7 +20,11 @@
 
    <?php if(! is_null($article->image_path)): ?>
  
-    <img src="<?= $article->image_path ?>" alt="">
+    <div class="card text-center">
+      <img src="<?= $article->image_path ?>" alt="">
+  </div>
+</div>
+   
     <?php endif?>
  </div>
    <?php include("footer.php"); ?>

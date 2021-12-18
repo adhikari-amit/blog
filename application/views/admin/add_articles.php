@@ -91,9 +91,7 @@
           ?>
         </div>
       </fieldset>
-    
-    </form>
-
+       <?= form_close(); ?>
     </div>
 
 

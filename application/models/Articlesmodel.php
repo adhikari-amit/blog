@@ -13,6 +13,16 @@ class Articlesmodel extends CI_Model{
         return $query->num_rows();    
    }
 
+   public function category()
+   {
+        $query=$this->db
+                    ->select(['title'])
+                    -> from ('category')
+                    ->get();
+
+        return $query->result();    
+   }
+
    public function allarticle_list($limit,$offset)
    {
         $query=$this->db
@@ -136,6 +146,16 @@ class Articlesmodel extends CI_Model{
         return false;
     }
     }
+
+     public function authors()
+   {
+        $query=$this->db
+                    -> from ('author')
+                    ->get();
+
+        return $query->result();    
+   }
+
 }
 
 

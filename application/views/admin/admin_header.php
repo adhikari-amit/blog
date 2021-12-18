@@ -15,15 +15,13 @@
          <li class="nav-item">
           <a class="nav-link" href="<?= base_url('admin/dashboard')?>">Dashboard</a>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+           <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('admin/category')?>">Category</a>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          </li>
+           <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('admin/authors')?>">Authors</a>
         </li>
-        
       </ul>
 
         <li class="d-flex">

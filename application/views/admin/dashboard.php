@@ -22,47 +22,46 @@
 
 
 
-   <div class="container-fluid my-5 ">
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Sr. No.</th>
-      <th scope="col">Title</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
+      <div class="container-fluid my-5 ">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Sr. No.</th>
+            <th scope="col">Title</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
 
-  <?php  	if(count($articles)): ?>
+        <?php  	if(count($articles)): ?>
 
+          <!-- For article number -->
+          <?php  $count=$this->uri->segment(3,0); ?>
+          <!--  -->
 
-    <!-- For article number -->
-   <?php  $count=$this->uri->segment(3,0); ?>
-    <!--  -->
+         <?php  foreach($articles as $article): ?>
 
-  <?php  foreach($articles as $article): ?>
+            <tr class="table-success">
+            <th scope="row"><?= ++$count ?></th>
+            <td><?= $article->title ?></td>
+            <td> 
+                 
+                 <!-- <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>  -->
+                 <?= anchor("admin/delete_article/{$article->id}","Delete",['class'=>'btn btn-outline-danger btn-sm']) ?>
+                  
+                 <!-- <button type="button" class="btn btn-outline-dark btn-sm">Edit</button> -->
+                 <?= anchor("admin/edit_article/{$article->id}","Edit",['class'=>'btn btn-outline-warning btn-sm']) ?>
+            </td>
+          </tr> 
+        <?php  endforeach; ?>
+      <?php else: ?>
 
-    <tr class="table-success">
-      <th scope="row"><?= ++$count ?></th>
-      <td><?= $article->title ?></td>
-      <td> 
-           
-           <!-- <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>  -->
-           <?= anchor("admin/delete_article/{$article->id}","Delete",['class'=>'btn btn-outline-danger btn-sm']) ?>
-            
-           <!-- <button type="button" class="btn btn-outline-dark btn-sm">Edit</button> -->
-           <?= anchor("admin/edit_article/{$article->id}","Edit",['class'=>'btn btn-outline-warning btn-sm']) ?>
-      </td>
-    </tr> 
-  <?php  endforeach; ?>
-<?php else: ?>
+      	<tr colspan="3"> No Record Found</tr>
+         <?php endif;?>
 
-	<tr colspan="3"> No Record Found</tr>
-   <?php endif;?>
-
-  </tbody>
-</table>
- 
+        </tbody>
+      </table>
+       
 <!-- Pagination -->
  <?= $this->pagination->create_links(); ?> 
 

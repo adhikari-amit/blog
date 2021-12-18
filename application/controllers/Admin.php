@@ -153,6 +153,66 @@ class Admin extends CI_Controller {
        return redirect('admin/dashboard');    
     }
 
+    public function category()
+    {
+
+    	$category=$this->articlesmodel->category();
+    	$this->load->view('admin/category',['category'=>$category]);
+    }
+    public function authors()
+    {
+
+    	$authors=$this->articlesmodel->authors();
+    	$this->load->view('admin/authors',['authors'=>$authors]);
+    }
+
+   public function add_author()
+    {
+    	 $config=[
+
+                'upload_path' => './uploads/authors',
+                'allowed_types' =>'jpg|jpeg|png|gif',
+
+                ];
+        $this->load->library('upload',$config);
+
+    	$this->load->library('form_validation');
+    	// Article inpute validation are store inside the config/form_config.php
+    	if($this->form_validation->run('add_articles_rules') && $this->upload->do_upload('image')){
+             
+             $post=$this->input->post();
+             
+             $data=$this->upload->data();
+             // echo "<pre>";
+             // print_r($data);
+             // exit;
+             $image_path=base_url("uploads/authors/".$data['raw_name'].$data['file_ext']);
+
+             // echo $image_path;
+             // exit;
+              
+             $post['image_path']=$image_path; 
+             // $this->load->model('articlesmodel');
+             if($this->articlesmodel->add_author($post)){
+                  
+                 $this->session->set_flashdata('success',"Author Inserted Successfully"); 	
+                 return redirect('admin/authors');
+             }
+             else{
+
+                 $this->session->set_flashdata('faliure',"An Error Occurred!! Please try after sometime."); 	
+                 return redirect('admin/authors');
+             }
+    	} 
+
+    	else{
+            $upload_error=$this->upload->display_errors();
+    		$this->load->view('admin/add_articles',compact('upload_error'));
+    	}
+    } 
+   
+
+
 
 	public function __construct()
 	{
@@ -163,4 +223,6 @@ class Admin extends CI_Controller {
         $this->load->model('articlesmodel');
         $this->load->helper('form');
 	}
+
+
 }
