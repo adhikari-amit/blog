@@ -10,16 +10,25 @@
 
 </head>
 <body>
-   <?php include("admin_header.php"); ?>
+  <?php include("admin_header.php"); ?>
+
+      <?php  if($success=$this->session->flashdata('success')): ?>
+            <div class="alert alert-dismissible alert-success">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong>Well! </strong> <a href="#" class="alert-link"><?= $success ?></a>.
+            </div>
+      <?php endif; ?>
+
+ <div class="container-fluid">
 
   <?php foreach ($authors as $author): ?>   
       <p><?=$author->name ?></p>
       <p><?=$author->bio ?></p>
   <?php endforeach?>
-  
+ </div> 
 
 
-  <a type="button" class="btn btn-primary btn-lg ms-5 my-5" href="<?= base_url('admin/add_author')?>"> + </a>
+  <a type="button" class="btn btn-primary btn-lg ms-5 my-5" href="<?= base_url('admin/new_authors')?>"> + </a>
    <?php include("admin_footer.php"); ?>
 
  <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');   ?>"></script> 

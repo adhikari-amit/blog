@@ -68,7 +68,7 @@ class Admin extends CI_Controller {
         $this->load->library('upload',$config);
 
     	$this->load->library('form_validation');
-    	// Article inpute validation are store inside the config/form_config.php
+    	// Article inpute validation are store inside the config/form_validation.php
     	if($this->form_validation->run('add_articles_rules') && $this->upload->do_upload('image')){
              
              $post=$this->input->post();
@@ -165,34 +165,33 @@ class Admin extends CI_Controller {
     	$authors=$this->articlesmodel->authors();
     	$this->load->view('admin/authors',['authors'=>$authors]);
     }
-
-   public function add_author()
+    
+    public function new_authors()
     {
-    	 $config=[
+
+    	$this->load->view('admin/add_author');
+    }
+
+    public function add_author()
+    {
+    	
+    	$config=[
 
                 'upload_path' => './uploads/authors',
-                'allowed_types' =>'jpg|jpeg|png|gif',
+                'allowed_types' =>'jpg|jpeg|png|gif|svg',
 
                 ];
         $this->load->library('upload',$config);
 
     	$this->load->library('form_validation');
-    	// Article inpute validation are store inside the config/form_config.php
-    	if($this->form_validation->run('add_articles_rules') && $this->upload->do_upload('image')){
+    	if($this->form_validation->run('author_form_rules') && $this->upload->do_upload('image')){
              
              $post=$this->input->post();
-             
              $data=$this->upload->data();
-             // echo "<pre>";
-             // print_r($data);
-             // exit;
              $image_path=base_url("uploads/authors/".$data['raw_name'].$data['file_ext']);
 
-             // echo $image_path;
-             // exit;
-              
              $post['image_path']=$image_path; 
-             // $this->load->model('articlesmodel');
+          
              if($this->articlesmodel->add_author($post)){
                   
                  $this->session->set_flashdata('success',"Author Inserted Successfully"); 	
@@ -207,7 +206,7 @@ class Admin extends CI_Controller {
 
     	else{
             $upload_error=$this->upload->display_errors();
-    		$this->load->view('admin/add_articles',compact('upload_error'));
+    		$this->load->view('admin/add_author',compact('upload_error'));
     	}
     } 
    

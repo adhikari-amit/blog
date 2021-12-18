@@ -32,7 +32,7 @@
         <legend>Add Article</legend>
 
         <div class="form-group">
-          <label  class="form-label mt-4">Title</label>
+        <label  class="form-label mt-4">Title</label>
          <?php $data = array(
             'name'          => 'title',
             'id'            => 'title',
@@ -43,7 +43,7 @@
 
             echo form_input($data);
          ?>
-           <?php echo form_error('title', '<p class="text-danger">', '</p>') ?>
+        <?php echo form_error('title', '<p class="text-danger">', '</p>') ?>
 
         </div>
         <div class="form-group">

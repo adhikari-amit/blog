@@ -155,6 +155,16 @@ class Articlesmodel extends CI_Model{
 
         return $query->result();    
    }
+     public function add_author($array)
+   {
+        $name=$array['name'];
+        $instagram=$array['instagram'];
+        $facebook=$array['facebook'];
+        $twitter=$array['twitter'];
+        $bio=$array['bio'];
+        $image_path=$array['image_path'];
+        return  $this->db->insert('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'bio'=>$bio,'image_path'=>$image_path]);
+   }
 
 }
 

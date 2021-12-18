@@ -8,20 +8,17 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
         
-         <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('user')?>">Articles</a>
-        </li>
-
-         <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/dashboard')?>">Dashboard</a>
-        </li>
-           <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/category')?>">Category</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('user')?>">Articles</a>
           </li>
-           <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/authors')?>">Authors</a>
-        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('admin/category')?>">Category</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('admin/authors')?>">Authors</a>
+          </li>
       </ul>
 
         <li class="d-flex">
