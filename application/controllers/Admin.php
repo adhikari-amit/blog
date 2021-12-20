@@ -162,8 +162,7 @@ class Admin extends CI_Controller {
             return $slug ;
                                 
              }
-
-
+             
     	$config=[
 
                 'upload_path' => './uploads/authors',
@@ -199,6 +198,15 @@ class Admin extends CI_Controller {
     	}
     } 
     
+    public function author_detail($slug)
+    {
+ 
+        $authors=$this->articlesmodel->find_author($slug);
+        $this->load->view('admin/author_detail',['authors'=>$authors]);	
+    }
+
+
+
     public function category()
     {
 

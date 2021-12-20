@@ -32,10 +32,8 @@
     <tbody>
          <?php foreach ($authors as $author): ?> 
       <tr >
-       
-        <th scope="row"><?=$author->name ?></th>
+        <td><?= anchor("admin/author_detail/{$author->slug}" ,$author->name) ?></td>
         <td><?=$author->bio ?></td>
-
       </tr>
           <?php endforeach?>
     </tbody>

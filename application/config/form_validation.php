@@ -39,22 +39,6 @@ $config=[
               'rules'=>'required|alpha_numeric_spaces'
              ],
 
-             [
-              'field'=>'facebook',
-              'label'=>'Facebook',
-              'rules'=>'alpha_dash'
-             ],
-
-             [
-              'field'=>'instagram',
-              'label'=>'Instagram',
-              'rules'=>'alpha_dash'
-             ],
-             [
-              'field'=>'twitter',
-              'label'=>'Twitter',
-              'rules'=>'alpha_dash'
-             ],
 
              [
               'field'=>'bio',

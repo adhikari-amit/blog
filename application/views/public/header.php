@@ -33,10 +33,8 @@
       <?php endif ?>  
         
       </ul>
-      <!-- <form class="d-flex"> -->
-         <?php echo form_open('user/search',['class'=>'d-flex']); ?>
-        <!-- <input class="form-control me-sm-2" type="text" placeholder="Search"> -->
 
+      <?php echo form_open('user/search',['class'=>'d-flex']); ?>
         <?php $data = array(
             'name'          => 'query',
             'id'            => 'query',
@@ -48,8 +46,7 @@
 
             echo form_input($data);
         ?>
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      <!-- </form> -->
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       <?= form_close(); ?>
     </div>
   </div>

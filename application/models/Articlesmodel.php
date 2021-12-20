@@ -163,6 +163,24 @@ class Articlesmodel extends CI_Model{
         return  $this->db->insert('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'slug'=>$slug,'bio'=>$bio,'image_path'=>$image_path]);
    }
 
+
+   public function find_author($slug)
+   {
+       
+        $q=$this->db                    
+                -> from ('author')
+                -> where(['slug'=>$slug])
+                ->get();
+        if($q->num_rows()){
+
+            return $q->row();
+        }        
+        else{
+
+              return false;
+        }
+   }
+
    public function category()
    {
         $query=$this->db
