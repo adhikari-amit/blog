@@ -11,9 +11,34 @@
 </head>
 <body>
    <?php include("admin_header.php"); ?>
-  <?php foreach ($category as $category): ?>   
-  <p><?=$category->title ?></p>
-    <?php endforeach?>
+
+  <div class="container"> 
+
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="text-danger" scope="col">Type</th>
+        <th class="text-danger" scope="col">Description</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+         <?php foreach ($category as $category): ?> 
+      <tr >
+       
+        <th scope="row"><?=$category->title ?></th>
+        <td><?=$category->description ?></td>
+
+      </tr>
+          <?php endforeach?>
+    </tbody>
+    
+  </table>
+
+</div>
+
+
+   <a type="button" class="btn btn-primary btn-lg ms-5 my-5" href="<?= base_url('admin/new_category')?>"> + </a>
    <?php include("admin_footer.php"); ?>
 
  <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');   ?>"></script> 

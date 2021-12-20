@@ -16,7 +16,6 @@
 
       <!-- A hidden form input field. -->
       <?php echo form_hidden('user_id',$this->session->userdata('user_id')); ?>
-      <?php echo form_hidden('created_at', date('Y-m-d_H:i:s')) ?>
       
       
        <!-- This is Flash data for successfully inserting Article -->
@@ -46,6 +45,86 @@
         <?php echo form_error('title', '<p class="text-danger">', '</p>') ?>
 
         </div>
+
+        <div class="form-group">
+        <label  class="form-label mt-4">Description</label>
+         <?php $data = array(
+            'name'          => 'desc',
+            'id'            => 'desc',
+            'class'         =>'form-control',
+            'placeholder'=>"Description ",
+            'value' => set_value('desc'),
+            );
+
+            echo form_textarea($data);
+         ?>
+        <?php echo form_error('desc', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+        
+        <div class="form-group">
+        <label  class="form-label mt-4">Author</label>
+         <?php $data = array(
+            'name'          => 'author',
+            'id'            => 'author',
+            'class'         =>'form-control',
+            'placeholder'=>"Enter author name",
+            'value' => set_value('author'),
+            );
+
+            echo form_input($data);
+         ?>
+        <?php echo form_error('author', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+        
+        <div class="form-group">
+        <label  class="form-label mt-4">Categories</label>
+         <?php $data = array(
+            'name'          => 'category',
+            'id'            => 'category',
+            'class'         =>'form-control',
+            'placeholder'=>"Category",
+            'value' => set_value('category'),
+            );
+
+            echo form_textarea($data);
+         ?>
+        <?php echo form_error('category', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+          
+        <div class="form-group">
+        <label  class="form-label mt-4">Publication Time</label>
+         <?php $data = array(
+            'name'          => 'created_at',
+            'id'            => 'created_at',
+            'type'          =>'date',
+            'class'         =>'form-control',
+            'value' => set_value('created_at'),
+            );
+
+            echo form_input($data);
+         ?>
+        <?php echo form_error('category', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+
+
+
+         <div class="form-group">
+          <label  class="form-label mt-4">Image</label>
+         <?php $data = array(
+            'name'          => 'image',          
+            'class'         =>'form-control',        
+            );
+
+            echo form_upload($data);
+         ?>
+           <?php if(isset($upload_error)) echo $upload_error ?>
+
+        </div>
+
         <div class="form-group">
           <label  class="form-label mt-4">Article</label>
           <?php $data = array(
@@ -58,25 +137,13 @@
             );
 
             echo form_textarea($data);
-         ?>
+           ?>
 
         <?php echo form_error('article', '<p class="text-danger">', '</p>') ?>
           
         </div>
-         <div class="form-group">
-          <label  class="form-label mt-4">Title</label>
-         <?php $data = array(
-            'name'          => 'image',
-          
-            'class'         =>'form-control',
-        
-            );
 
-            echo form_upload($data);
-         ?>
-           <?php if(isset($upload_error)) echo $upload_error ?>
 
-        </div>
         <div class="d-grid gap-2 my-3">
           <!-- <button class="btn btn-lg btn-primary" type="submit">Submit</button> -->
 

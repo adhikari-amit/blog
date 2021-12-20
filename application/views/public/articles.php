@@ -31,8 +31,7 @@
     
     <tr class="table-success">
       <th scope="row"><?= ++$count ?></th>
-      <td><?= anchor("user/article/{$article->id}" ,$article->title) ?></td>
-      <!-- <td><?=date('y-m-d H:i:s',strtotime($article->created_at));  ?></td>  -->
+      <td><?= anchor("user/article/{$article->title}" ,$article->title) ?></td>
       <td> <?= $article->created_at ?></td> 
 
     </tr>
@@ -44,7 +43,7 @@
 
   </tbody>
 </table>
-<!-- Pagination -->
+
  <?= $this->pagination->create_links(); ?> 
 
    </div>

@@ -61,8 +61,23 @@ $config=[
               'label'=>'Bio',
               'rules'=>'required'
              ]                   
-      ]
+      ],
+       
 
+        'category_form_rules' =>[
+
+             [
+              'field'=>'title',
+              'label'=>'Title',
+              'rules'=>'required|alpha_numeric_spaces'
+             ],
+
+             [
+              'field'=>'desc',
+              'label'=>'Description',
+              'rules'=>'required'
+             ]                   
+      ]
 
 ];
 

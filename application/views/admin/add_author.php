@@ -10,6 +10,8 @@
 
 </head>
 <body>
+
+
    
    <?php include("admin_header.php"); ?>
       
@@ -17,7 +19,6 @@
       <!-- <form> -->
       <?php echo form_open_multipart('admin/add_author'); ?>
 
-      <!-- A hidden form input field. -->
       <fieldset>
         <legend>Add Author</legend>
 
@@ -104,7 +105,6 @@
         <?php echo form_error('bio', '<p class="text-danger">', '</p>') ?>
           
         </div> 
-
 
         <div class="form-group">
           <label  class="form-label mt-4">Image</label>

@@ -19,14 +19,30 @@
             </div>
       <?php endif; ?>
 
- <div class="container-fluid">
+ <div class="container"> 
 
-  <?php foreach ($authors as $author): ?>   
-      <p><?=$author->name ?></p>
-      <p><?=$author->bio ?></p>
-  <?php endforeach?>
- </div> 
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="text-danger" scope="col">Name</th>
+        <th class="text-danger" scope="col">Bio</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+         <?php foreach ($authors as $author): ?> 
+      <tr >
+       
+        <th scope="row"><?=$author->name ?></th>
+        <td><?=$author->bio ?></td>
 
+      </tr>
+          <?php endforeach?>
+    </tbody>
+    
+  </table>
+
+</div>
 
   <a type="button" class="btn btn-primary btn-lg ms-5 my-5" href="<?= base_url('admin/new_authors')?>"> + </a>
    <?php include("admin_footer.php"); ?>

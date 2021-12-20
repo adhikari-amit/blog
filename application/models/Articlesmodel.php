@@ -12,17 +12,7 @@ class Articlesmodel extends CI_Model{
 
         return $query->num_rows();    
    }
-
-   public function category()
-   {
-        $query=$this->db
-                    ->select(['title'])
-                    -> from ('category')
-                    ->get();
-
-        return $query->result();    
-   }
-
+   
    public function allarticle_list($limit,$offset)
    {
         $query=$this->db
@@ -35,7 +25,7 @@ class Articlesmodel extends CI_Model{
    }
 
 
-	public function article_list($limit,$offset)
+    public function article_list($limit,$offset)
     {
          
         $user_id=$this->session->userdata('user_id');
@@ -67,7 +57,10 @@ class Articlesmodel extends CI_Model{
     {   
         $title=$array['title'];
         $body=$array['article'];
+        $author=$array['author'];
         $user_id=$array['user_id'];
+        $description=$array['desc'];
+        $category=$array['category'];
         $created_at=$array['created_at'];
         $image_path=$array['image_path'];
         return  $this->db->insert('articles',['title'=>$title,'body'=>$body,'user_id'=>$user_id,'created_at'=>$created_at,'image_path'=>$image_path]);
@@ -107,7 +100,6 @@ class Articlesmodel extends CI_Model{
     }
 
 
-
     public function search($query,$limit,$offset)
     {
 
@@ -131,40 +123,63 @@ class Articlesmodel extends CI_Model{
 
         return $q->num_rows();   
     }
-    public function find($id)
+
+    public function find($title)
     {
 
         $q=$this->db                    
                 -> from ('articles')
-                -> where(['id'=>$id])
+                -> where(['title'=>$title])
                 ->get();
         if($q->num_rows()){
 
             return $q->row();
         }        
         else{
-        return false;
-    }
+
+              return false;
+        }
     }
 
-     public function authors()
+
+   public function authors()
    {
         $query=$this->db
-                    -> from ('author')
+                    ->from ('author')
                     ->get();
 
         return $query->result();    
    }
-     public function add_author($array)
+
+   public function add_author($array)
    {
         $name=$array['name'];
         $instagram=$array['instagram'];
         $facebook=$array['facebook'];
         $twitter=$array['twitter'];
+        $slug=$array['slug'];
         $bio=$array['bio'];
         $image_path=$array['image_path'];
-        return  $this->db->insert('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'bio'=>$bio,'image_path'=>$image_path]);
+        return  $this->db->insert('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'slug'=>$slug,'bio'=>$bio,'image_path'=>$image_path]);
    }
+
+   public function category()
+   {
+        $query=$this->db
+                    ->from('category')
+                    ->get();
+
+        return $query->result();    
+   }
+
+
+   public function add_category($array)
+   {
+        $title=$array['title'];
+        $desc=$array['desc'];
+        $image_path=$array['image_path'];
+        return  $this->db->insert('category',['title'=>$title,'description'=>$desc,'image_path'=>$image_path]);   
+    }
 
 }
 

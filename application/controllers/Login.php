@@ -4,9 +4,9 @@ class Login extends CI_Controller {
 
 	public function index()
 	{   
-		if($this->session->userdata('user_id')){
-          return redirect('admin/dashboard');
-
+		if($this->session->userdata('user_id'))
+		{
+      return redirect('admin/dashboard');
 		}
 		$this->load->helper('form');
 		$this->load->view('public/login');
@@ -15,11 +15,7 @@ class Login extends CI_Controller {
 	public function admin_login()
 	{
         
-		$this->load->library('form_validation');
-
-		// $this->form_validation->set_rules('username','User Name','required|alpha_numeric');
-		// $this->form_validation->set_rules('password','Password','required');
-		// Above mentioned rules are stored inside the config/form_validation.php
+	$this->load->library('form_validation');
 
 	if($this->form_validation->run('login_form_rules'))
 	{
@@ -32,12 +28,8 @@ class Login extends CI_Controller {
 
         if($login_id)
         {
-         	// $this->load->library('session');
-          //  seession is included in the config/autoload.php
 
-        $this->session->set_userdata('user_id',$login_id);
-        	// After above opetaion we need to set a encryption key in the config/config.php
-            
+        $this->session->set_userdata('user_id',$login_id);     
         return redirect('admin/dashboard');
 
         }

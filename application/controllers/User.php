@@ -53,9 +53,6 @@ class User extends CI_Controller{
       }
       
       $query=$this->input->post('query');
-      // $this->load->model('articlesmodel');
-      // $articles=$this->articlesmodel->search($query);
-      // $this->load->view('public/search_result',['articles'=>$articles]);
 
       return redirect ("user/search_results/$query");
     }
@@ -102,11 +99,14 @@ class User extends CI_Controller{
     }
 
 
-    public function article($article_id)
+    public function article($article_name)
     {   
         $this->load->helper('form');
         $this->load->model('articlesmodel');
-        $articles=$this->articlesmodel->find($article_id);
+
+        print_r($article_name);
+        exit;
+        $articles=$this->articlesmodel->find($article_name);
         $this->load->view('public/article_detail',['article'=>$articles]);
     }
 

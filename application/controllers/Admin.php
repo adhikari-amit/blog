@@ -10,10 +10,6 @@ class Admin extends CI_Controller {
 	public function dashboard()
 	{
 	    
-        // $this->load->model('articlesmodel');
-        // This model is loaded in construtor as we will use it repetatebly.
-
-        // Pagination Logic
         $this->load->library('pagination');
         $config=[
 
@@ -39,7 +35,6 @@ class Admin extends CI_Controller {
         	'cur_tag_open'   => "<li class='page-item active'><a class='page-link'>",
         	'cur_tag_close'  =>"</a></li>",
              
-             // For adding class to every anchar tag
             'attributes'   =>  array('class' => 'page-link'),
         ];
         
@@ -51,8 +46,7 @@ class Admin extends CI_Controller {
 
     public function add_article()
     {   
-    	// $this->load->helper('form');
-    	// this helper will be autoloaded in constructor
+
     	$this->load->view('admin/add_articles');
     	
     }
@@ -61,29 +55,23 @@ class Admin extends CI_Controller {
     {
         $config=[
 
-                'upload_path' => './uploads',
+                'upload_path' => './uploads/articles',
                 'allowed_types' =>'jpg|jpeg|png|gif',
 
         ];
         $this->load->library('upload',$config);
 
     	$this->load->library('form_validation');
-    	// Article inpute validation are store inside the config/form_validation.php
+
     	if($this->form_validation->run('add_articles_rules') && $this->upload->do_upload('image')){
              
              $post=$this->input->post();
              
              $data=$this->upload->data();
-             // echo "<pre>";
-             // print_r($data);
-             // exit;
-             $image_path=base_url("uploads/".$data['raw_name'].$data['file_ext']);
 
-             // echo $image_path;
-             // exit;
-              
+             $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
+
              $post['image_path']=$image_path; 
-             // $this->load->model('articlesmodel');
              if($this->articlesmodel->add_article($post)){
                   
                  $this->session->set_flashdata('success',"Article Inserted Successfully"); 	
@@ -116,13 +104,10 @@ class Admin extends CI_Controller {
    
         
     	$this->load->library('form_validation');
-    	// Article inpute validation are store inside the config/form_config.php
     	if($this->form_validation->run('add_articles_rules')){
              
              $post=$this->input->post();
 
-
-             // $this->load->model('articlesmodel');
              if($this->articlesmodel->update_article($post)){
                 
                  $this->session->set_flashdata('success',"Article Updated Successfully"); 	
@@ -146,19 +131,12 @@ class Admin extends CI_Controller {
     public function delete_article($article_id)
     {
 
-       // $this->load->helper('form');
-       // $this->load->model('articlesmodel');
        $article=$this->articlesmodel->delete_article($article_id);
        $this->session->set_flashdata('success',"Record Deleted..."); 	          
        return redirect('admin/dashboard');    
     }
 
-    public function category()
-    {
-
-    	$category=$this->articlesmodel->category();
-    	$this->load->view('admin/category',['category'=>$category]);
-    }
+    
     public function authors()
     {
 
@@ -174,7 +152,18 @@ class Admin extends CI_Controller {
 
     public function add_author()
     {
-    	
+    	 
+
+        function fixForUri($string){
+            $slug = trim($string);
+            $slug= preg_replace('/[^a-zA-Z0-9 -]/','',$slug );
+            $slug= str_replace(' ','-', $slug);
+            $slug= strtolower($slug);
+            return $slug ;
+                                
+             }
+
+
     	$config=[
 
                 'upload_path' => './uploads/authors',
@@ -191,7 +180,7 @@ class Admin extends CI_Controller {
              $image_path=base_url("uploads/authors/".$data['raw_name'].$data['file_ext']);
 
              $post['image_path']=$image_path; 
-          
+             $post['slug']=fixForUri($post['name']);
              if($this->articlesmodel->add_author($post)){
                   
                  $this->session->set_flashdata('success',"Author Inserted Successfully"); 	
@@ -209,9 +198,56 @@ class Admin extends CI_Controller {
     		$this->load->view('admin/add_author',compact('upload_error'));
     	}
     } 
-   
+    
+    public function category()
+    {
 
+    	$category=$this->articlesmodel->category();
+    	$this->load->view('admin/category',['category'=>$category]);
+    }
 
+    public function new_category()
+    {
+
+    	$this->load->view('admin/add_category');
+    }
+
+    public function add_category()
+    {
+    	$config=[
+
+                'upload_path' => './uploads/category',
+                'allowed_types' =>'jpg|jpeg|png|gif|svg',
+
+                ];
+        $this->load->library('upload',$config);
+
+    	$this->load->library('form_validation');
+    	if($this->form_validation->run('category_form_rules') && $this->upload->do_upload('image')){
+             
+             $post=$this->input->post();
+             $data=$this->upload->data();
+             $image_path=base_url("uploads/category/".$data['raw_name'].$data['file_ext']);
+
+             $post['image_path']=$image_path; 
+          
+             if($this->articlesmodel->add_category($post)){
+                  
+                 $this->session->set_flashdata('success',"Category Inserted Successfully"); 	
+                 return redirect('admin/category');
+             }
+             else{
+
+                 $this->session->set_flashdata('faliure',"An Error Occurred!! Please try after sometime."); 	
+                 return redirect('admin/category');
+             }
+    	} 
+
+    	else{
+            $upload_error=$this->upload->display_errors();
+    		$this->load->view('admin/add_category',compact('upload_error'));
+    	}
+    }
 
 	public function __construct()
 	{
