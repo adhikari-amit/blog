@@ -10,18 +10,15 @@
 <body>
    <?php include("admin_header.php"); ?>
    <div class="container">
-   <h1 class="my-5 ms-5"><?= $authors->name ?></h1>
-   <!-- <p class="my-5 ms-5">Published On: <?= date($article->created_at) ?></p> -->
-
-
+   <h1 class="my-5 ms-5"><?= $category->title ?></h1>
    <div class="container">
-    <p><?= $authors->bio ?></p>
+    <p><?= $category->description?></p>
    </div>
-
-   <?php if(! is_null($authors->image_path)): ?>
+   
+   <?php if(! is_null($category->image_path)): ?>
  
-    <div class="card ">
-      <img src="<?= $authors->image_path ?>" alt="" class='figure-img img-fluid rounded' style='height: 350px; width: 350px;'>
+    <div class="card text-center">
+      <img src="<?= $category->image_path ?>" alt=""class='figure-img img-fluid rounded' style='height: 550px; width:750px;'>
   </div>
 </div>
    

@@ -15,7 +15,8 @@
       
     <div class="container my-5">
       <!-- <form> -->
-      <?php echo form_open_multipart('admin/add_author'); ?>
+      <?php echo form_open_multipart('admin/update_author'); ?>
+      <?php echo form_hidden('author_id',($author->author_id )); ?>
 
       <fieldset>
         <legend>Add Author</legend>
@@ -27,7 +28,7 @@
             'id'            => 'name',
             'class'         =>'form-control',
             'placeholder'=>"Enter Author Name",
-            'value' => set_value('name'),
+            'value' => set_value('name',$author->name),
             );
 
             echo form_input(html_escape($data));
@@ -42,7 +43,7 @@
             'id'            => 'facebook',         
             'class'         => 'form-control',
             'placeholder'=>"Enter Facebook Url",
-            'value' => set_value('facebook'),
+            'value' => set_value('facebook',$author->facebook),
             );
 
             echo form_input($data);
@@ -59,7 +60,7 @@
             'id'            => 'instagram',         
             'class'         => 'form-control',
             'placeholder'=>"Enter instagram Username",
-            'value' => set_value('instagram'),
+            'value' => set_value('instagram',$author->instagram),
             );
 
             echo form_input($data);
@@ -76,7 +77,7 @@
             'id'            => 'twitter',         
             'class'         => 'form-control',
             'placeholder'=>"Enter Twitter Username",
-            'value' => set_value('twitter'),
+            'value' => set_value('twitter',$author->twitter),
             );
 
             echo form_input($data);
@@ -94,7 +95,7 @@
             'class'         => 'form-control',
             'rows'          =>'6',
             'placeholder'=>"Write Here...",
-            'value' => set_value('bio'),
+            'value' => set_value('bio',$author->bio),
             );
 
             echo form_textarea($data);
@@ -108,7 +109,7 @@
           <label  class="form-label mt-4">Image</label>
          <?php $data = array(
             'name'          => 'image',          
-            'class'         =>'form-control',        
+            'class'         =>'form-control',      
             );
 
             echo form_upload($data);

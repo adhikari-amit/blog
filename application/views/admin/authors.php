@@ -18,6 +18,12 @@
               <strong>Well! </strong> <a href="#" class="alert-link"><?= $success ?></a>.
             </div>
       <?php endif; ?>
+      <?php  if($faliure=$this->session->flashdata('faliure')): ?>
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong>alash! </strong> <a href="#" class="alert-link"><?= $faliure ?></a>.
+            </div>
+      <?php endif; ?>
 
  <div class="container"> 
 
@@ -26,6 +32,7 @@
       <tr>
         <th class="text-danger" scope="col">Name</th>
         <th class="text-danger" scope="col">Bio</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     
@@ -34,6 +41,10 @@
       <tr >
         <td><?= anchor("admin/author_detail/{$author->slug}" ,$author->name) ?></td>
         <td><?=$author->bio ?></td>
+        <td> 
+            <?= anchor("admin/delete_author/{$author->author_id}","Delete",['class'=>'btn btn-outline-danger btn-sm']) ?>
+            <?= anchor("admin/edit_author/{$author->slug}","Edit",['class'=>'btn btn-outline-success btn-sm']) ?>
+        </td>
       </tr>
           <?php endforeach?>
     </tbody>

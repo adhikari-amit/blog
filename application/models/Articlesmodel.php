@@ -163,7 +163,12 @@ class Articlesmodel extends CI_Model{
         return  $this->db->insert('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'slug'=>$slug,'bio'=>$bio,'image_path'=>$image_path]);
    }
 
-
+    public function delete_author($author_id)
+    {
+        return $this->db 
+                    ->where('author_id',$author_id)
+                    ->delete('author');
+    }
    public function find_author($slug)
    {
        
@@ -180,6 +185,20 @@ class Articlesmodel extends CI_Model{
               return false;
         }
    }
+    public function update_author($array)
+    { 
+
+        $name=$array['name'];
+        $instagram=$array['instagram'];
+        $facebook=$array['facebook'];
+        $twitter=$array['twitter'];
+        $bio=$array['bio'];
+        $image_path=$array['image_path'];
+        $author_id=$array['author_id'];
+        return  $this->db  
+                    ->where('author_id',$author_id)
+                    ->update('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'bio'=>$bio,'image_path'=>$image_path]);                              
+    }
 
    public function category()
    {
@@ -195,9 +214,43 @@ class Articlesmodel extends CI_Model{
    {
         $title=$array['title'];
         $desc=$array['desc'];
+        $slug=$array['slug'];
         $image_path=$array['image_path'];
-        return  $this->db->insert('category',['title'=>$title,'description'=>$desc,'image_path'=>$image_path]);   
+        return  $this->db->insert('category',['title'=>$title,'description'=>$desc,'slug'=>$slug,'image_path'=>$image_path]);   
     }
+    
+     public function delete_category($category_id)
+    {
+        return $this->db 
+                    ->where('category_id',$category_id)
+                    ->delete('category');
+    }
+    public function update_category($array)
+    {
+        $title=$array['title'];
+        $desc=$array['desc'];
+        $image_path=$array['image_path'];
+        $category_id=$array['category_id'];
+        return  $this->db  
+                    ->where('category_id',$category_id)
+                    ->update('category',['title'=>$title,'image_path'=>$image_path,'description'=>$desc]);     
+    }
+   public function find_category($slug)
+   {
+       
+        $q=$this->db                    
+                -> from ('category')
+                -> where(['slug'=>$slug])
+                ->get();
+        if($q->num_rows()){
+
+            return $q->row();
+        }        
+        else{
+
+              return false;
+        }
+   }
 
 }
 

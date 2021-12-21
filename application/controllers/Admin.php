@@ -58,15 +58,13 @@ class Admin extends CI_Controller {
                 'upload_path' => './uploads/articles',
                 'allowed_types' =>'jpg|jpeg|png|gif',
 
-        ];
+                ];
         $this->load->library('upload',$config);
-
     	$this->load->library('form_validation');
 
     	if($this->form_validation->run('add_articles_rules') && $this->upload->do_upload('image')){
              
-             $post=$this->input->post();
-             
+             $post=$this->input->post();             
              $data=$this->upload->data();
 
              $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
@@ -91,10 +89,8 @@ class Admin extends CI_Controller {
     }
 
     
-    public function edit_article($article_id){
-       
-       // $this->load->helper('form');
-       // $this->load->model('articlesmodel');
+    public function edit_article($article_id)
+    {
        $article=$this->articlesmodel->find_article($article_id);
        $this->load->view('admin/edit_articles',['article'=>$article]);
     }
@@ -132,11 +128,15 @@ class Admin extends CI_Controller {
     {
 
        $article=$this->articlesmodel->delete_article($article_id);
-       $this->session->set_flashdata('success',"Record Deleted..."); 	          
+       $this->session->set_flashdata('success',"R    public function edit_article($article_id)
+    {
+       $article=$this->articlesmodel->find_article($article_id);
+       $this->load->view('admin/edit_articles',['article'=>$article]);
+    }ecord Deleted..."); 	          
        return redirect('admin/dashboard');    
     }
 
-    
+    // Author Section
     public function authors()
     {
 
@@ -154,14 +154,15 @@ class Admin extends CI_Controller {
     {
     	 
 
-        function fixForUri($string){
+        function fixForUrl($string)
+        {
             $slug = trim($string);
             $slug= preg_replace('/[^a-zA-Z0-9 -]/','',$slug );
             $slug= str_replace(' ','-', $slug);
             $slug= strtolower($slug);
             return $slug ;
                                 
-             }
+        }
              
     	$config=[
 
@@ -169,9 +170,9 @@ class Admin extends CI_Controller {
                 'allowed_types' =>'jpg|jpeg|png|gif|svg',
 
                 ];
+        
         $this->load->library('upload',$config);
-
-    	$this->load->library('form_validation');
+        $this->load->library('form_validation');
     	if($this->form_validation->run('author_form_rules') && $this->upload->do_upload('image')){
              
              $post=$this->input->post();
@@ -179,7 +180,7 @@ class Admin extends CI_Controller {
              $image_path=base_url("uploads/authors/".$data['raw_name'].$data['file_ext']);
 
              $post['image_path']=$image_path; 
-             $post['slug']=fixForUri($post['name']);
+             $post['slug']=fixForUrl($post['name']);
              if($this->articlesmodel->add_author($post)){
                   
                  $this->session->set_flashdata('success',"Author Inserted Successfully"); 	
@@ -197,7 +198,59 @@ class Admin extends CI_Controller {
     		$this->load->view('admin/add_author',compact('upload_error'));
     	}
     } 
+
+
+    public function delete_author($id)
+    {
+       $article=$this->articlesmodel->delete_author($id);
+       $this->session->set_flashdata('faliure',"Record Deleted..."); 	          
+       return redirect('admin/authors');   
+    }
     
+    public function edit_author($slug)
+    {
+       
+       $author=$this->articlesmodel->find_author($slug);
+       $this->load->view('admin/edit_author',['author'=>$author]);
+    }
+    
+
+    public function update_author()
+    {
+    	
+        $config=[
+
+                'upload_path'   => './uploads/authors',
+                'allowed_types' =>'jpg|jpeg|png|gif|svg',
+
+                ];
+        $this->load->library('upload',$config);
+    	$this->load->library('form_validation');
+        
+    	if($this->form_validation->run('author_form_rules') && $this->upload->do_upload('image')){
+             
+             $post=$this->input->post();
+             $data=$this->upload->data();
+             $image_path=base_url("uploads/authors/".$data['raw_name'].$data['file_ext']);
+             $post['image_path']=$image_path;
+             if($this->articlesmodel->update_author($post)){
+                
+                 $this->session->set_flashdata('success',"Author Updated Successfully"); 	
+                 return redirect('admin/authors');
+             }
+             else{
+
+                 $this->session->set_flashdata('faliure',"An Error Occurred!! Please try after sometime."); 	
+                 return redirect('admin/authors');
+             }
+    	} 
+    	else{
+
+            $this->session->set_flashdata('faliure',"Error! try again"); 
+            return redirect('admin/authors');
+    	}
+    }
+
     public function author_detail($slug)
     {
  
@@ -206,7 +259,7 @@ class Admin extends CI_Controller {
     }
 
 
-
+    // Category Section
     public function category()
     {
 
@@ -221,7 +274,18 @@ class Admin extends CI_Controller {
     }
 
     public function add_category()
-    {
+    {   
+
+
+        function fixForUrl($string){
+            $slug = trim($string);
+            $slug= preg_replace('/[^a-zA-Z0-9 -]/','',$slug );
+            $slug= str_replace(' ','-', $slug);
+            $slug= strtolower($slug);
+            return $slug ;
+                                
+             }
+             
     	$config=[
 
                 'upload_path' => './uploads/category',
@@ -234,11 +298,10 @@ class Admin extends CI_Controller {
     	if($this->form_validation->run('category_form_rules') && $this->upload->do_upload('image')){
              
              $post=$this->input->post();
+             $post['slug']=fixForUrl($post['title']);
              $data=$this->upload->data();
              $image_path=base_url("uploads/category/".$data['raw_name'].$data['file_ext']);
-
-             $post['image_path']=$image_path; 
-          
+             $post['image_path']=$image_path;           
              if($this->articlesmodel->add_category($post)){
                   
                  $this->session->set_flashdata('success',"Category Inserted Successfully"); 	
@@ -256,6 +319,62 @@ class Admin extends CI_Controller {
     		$this->load->view('admin/add_category',compact('upload_error'));
     	}
     }
+     
+     public function category_detail($slug)
+    {
+ 
+        $category=$this->articlesmodel->find_category($slug);
+        $this->load->view('admin/category_details',['category'=>$category]);	
+    }
+    
+    public function delete_category($id)
+    {
+
+       $article=$this->articlesmodel->delete_category($id);
+       $this->session->set_flashdata('faliure',"Record Deleted..."); 	          
+       return redirect('admin/category');
+    }
+    
+    public function edit_category($slug)
+    {
+       $category=$this->articlesmodel->find_category($slug);
+       $this->load->view('admin/edit_category',['category'=>$category]);
+    }
+
+    public function update_category()
+    {   
+    	$config=[
+
+                'upload_path'   => './uploads/category',
+                'allowed_types' =>'jpg|jpeg|png|gif|svg',
+
+                ];
+        $this->load->library('upload',$config);
+    	$this->load->library('form_validation');
+        
+    	if($this->form_validation->run('category_form_rules') && $this->upload->do_upload('image')){
+             
+             $post=$this->input->post();
+             $data=$this->upload->data();
+             $image_path=base_url("uploads/category/".$data['raw_name'].$data['file_ext']);
+             $post['image_path']=$image_path;
+             if($this->articlesmodel->update_category($post)){
+                
+                 $this->session->set_flashdata('success',"Author Updated Successfully"); 	
+                 return redirect('admin/category');
+             }
+             else{
+
+                 $this->session->set_flashdata('faliure',"An Error Occurred!! Please try after sometime."); 	
+                 return redirect('admin/category');
+             }
+    	} 
+    	else{
+            
+            $this->session->set_flashdata('faliure',"Error! try again"); 
+            return redirect('admin/category');
+    	}
+    }
 
 	public function __construct()
 	{
@@ -266,6 +385,6 @@ class Admin extends CI_Controller {
         $this->load->model('articlesmodel');
         $this->load->helper('form');
 	}
-
-
 }
+
+

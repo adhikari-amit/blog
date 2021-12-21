@@ -12,6 +12,19 @@
 <body>
    <?php include("admin_header.php"); ?>
 
+    <?php  if($success=$this->session->flashdata('success')): ?>
+            <div class="alert alert-dismissible alert-success">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong>Well! </strong> <a href="#" class="alert-link"><?= $success ?></a>.
+            </div>
+      <?php endif; ?>
+      <?php  if($faliure=$this->session->flashdata('faliure')): ?>
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong>alash! </strong> <a href="#" class="alert-link"><?= $faliure ?></a>.
+            </div>
+      <?php endif; ?>
+
   <div class="container"> 
 
     <table class="table table-hover">
@@ -19,16 +32,19 @@
       <tr>
         <th class="text-danger" scope="col">Type</th>
         <th class="text-danger" scope="col">Description</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     
     <tbody>
          <?php foreach ($category as $category): ?> 
       <tr >
-       
-        <th scope="row"><?=$category->title ?></th>
+        <td><?= anchor("admin/category_detail/{$category->slug}" ,$category->title) ?></td>
         <td><?=$category->description ?></td>
-
+        <td> 
+            <?= anchor("admin/delete_category/{$category->category_id }","Delete",['class'=>'btn btn-outline-danger btn-sm'])?>
+            <?= anchor("admin/edit_category/{$category->slug}","Edit",['class'=>'btn btn-outline-success btn-sm']) ?>
+        </td>
       </tr>
           <?php endforeach?>
     </tbody>
