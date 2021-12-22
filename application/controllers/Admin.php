@@ -2,6 +2,7 @@
 
 class Admin extends CI_Controller {
 
+
 	public function index()
 	{   
 	
@@ -46,13 +47,25 @@ class Admin extends CI_Controller {
 
     public function add_article()
     {   
-
-    	$this->load->view('admin/add_articles');
+        $category=$this->articlesmodel->category();
+        $authors=$this->articlesmodel->authors();
+    	$this->load->view('admin/add_articles',['category'=>$category,'authors'=>$authors]);
     	
     }
 
     public function store_article()
-    {
+    {   
+
+        function fixForUrl($string)
+        {
+            $slug = trim($string);
+            $slug= preg_replace('/[^a-zA-Z0-9 -]/','',$slug );
+            $slug= str_replace(' ','-', $slug);
+            $slug= strtolower($slug);
+            return $slug ;
+                                
+        }
+
         $config=[
 
                 'upload_path' => './uploads/articles',
@@ -69,7 +82,9 @@ class Admin extends CI_Controller {
 
              $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
 
-             $post['image_path']=$image_path; 
+             $post['image_path']=$image_path;
+             $post['slug']=fixForUrl($post['title']);
+            
              if($this->articlesmodel->add_article($post)){
                   
                  $this->session->set_flashdata('success',"Article Inserted Successfully"); 	
@@ -128,11 +143,7 @@ class Admin extends CI_Controller {
     {
 
        $article=$this->articlesmodel->delete_article($article_id);
-       $this->session->set_flashdata('success',"R    public function edit_article($article_id)
-    {
-       $article=$this->articlesmodel->find_article($article_id);
-       $this->load->view('admin/edit_articles',['article'=>$article]);
-    }ecord Deleted..."); 	          
+       $this->session->set_flashdata('success',"Record Deleted..."); 	          
        return redirect('admin/dashboard');    
     }
 
@@ -276,7 +287,6 @@ class Admin extends CI_Controller {
     public function add_category()
     {   
 
-
         function fixForUrl($string){
             $slug = trim($string);
             $slug= preg_replace('/[^a-zA-Z0-9 -]/','',$slug );
@@ -375,11 +385,12 @@ class Admin extends CI_Controller {
             return redirect('admin/category');
     	}
     }
-
+    
 	public function __construct()
 	{
 		parent::__construct();
-		if(! $this->session->userdata('user_id')){
+		if(! $this->session->userdata('user_id'))
+		{
 			return redirect('login');
 	    }
         $this->load->model('articlesmodel');

@@ -5,20 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Articles</title>
 	<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
+  <script type="text/javascript" src="<?=base_url('assets/ckeditor/ckeditor.js');?>"> </script>
 
 </head>
 <body>
    <?php include("admin_header.php"); ?>
     
     <div class="container my-5">
-      <!-- <form> -->
       <?php echo form_open_multipart('admin/store_article'); ?>
-
-      <!-- A hidden form input field. -->
       <?php echo form_hidden('user_id',$this->session->userdata('user_id')); ?>
-      
-      
-       <!-- This is Flash data for successfully inserting Article -->
+  
         <?php  if($faliure=$this->session->flashdata('faliure')): ?>
             <div class="alert alert-dismissible alert-success">
               <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -36,8 +32,8 @@
             'name'          => 'title',
             'id'            => 'title',
             'class'         =>'form-control',
-            'placeholder'=>"Title of the Article",
-            'value' => set_value('title'),
+            'placeholder'   =>"Title of the Article",
+            'value'         => set_value('title'),
             );
 
             echo form_input($data);
@@ -52,8 +48,9 @@
             'name'          => 'desc',
             'id'            => 'desc',
             'class'         =>'form-control',
-            'placeholder'=>"Description ",
-            'value' => set_value('desc'),
+            'rows'          =>'6',
+            'placeholder'   =>"Description",
+            'value'         => set_value('desc'),
             );
 
             echo form_textarea($data);
@@ -64,36 +61,50 @@
         
         <div class="form-group">
         <label  class="form-label mt-4">Author</label>
-         <?php $data = array(
+        <?php
+
+        $options = array();
+        foreach ($authors as $author)
+        {
+         $options[$author->name] = $author->name;
+        }
+
+          $data = array(
             'name'          => 'author',
             'id'            => 'author',
-            'class'         =>'form-control',
-            'placeholder'=>"Enter author name",
-            'value' => set_value('author'),
-            );
+            'class'         =>'form-select',
+            'options'       => $options,
+            'value'         => set_value('author'),
+          );
 
-            echo form_input($data);
-         ?>
+          echo form_dropdown($data);
+        ?>
         <?php echo form_error('author', '<p class="text-danger">', '</p>') ?>
 
         </div>
-        
+
         <div class="form-group">
-        <label  class="form-label mt-4">Categories</label>
-         <?php $data = array(
+        <label class="form-label mt-4">Categories</label>
+
+       <?php 
+
+        $options = array();
+        foreach ($category as $category){
+         $options[$category->title] = $category->title;
+       }
+         $data = array(
             'name'          => 'category',
             'id'            => 'category',
-            'class'         =>'form-control',
-            'placeholder'=>"Category",
-            'value' => set_value('category'),
+            'class'         =>'form-select',
+            'options'       => $options,
+            'value'         => set_value('category'),
             );
-
-            echo form_textarea($data);
-         ?>
-        <?php echo form_error('category', '<p class="text-danger">', '</p>') ?>
-
+           
+            echo form_dropdown($data);
+           ?>
+           <?php echo form_error('category', '<p class="text-danger">', '</p>') ?>
         </div>
-          
+
         <div class="form-group">
         <label  class="form-label mt-4">Publication Time</label>
          <?php $data = array(
@@ -101,7 +112,7 @@
             'id'            => 'created_at',
             'type'          =>'date',
             'class'         =>'form-control',
-            'value' => set_value('created_at'),
+            'value'         => set_value('created_at'),
             );
 
             echo form_input($data);
@@ -127,13 +138,15 @@
 
         <div class="form-group">
           <label  class="form-label mt-4">Article</label>
-          <?php $data = array(
+          <?php 
+
+          $data = array(
             'name'          => 'article',
-            'id'            => 'article',         
+            'id'            => 'article',
+            'rows'          =>'10',         
             'class'         => 'form-control',
-            'rows'          =>'6',
-            'placeholder'=>"Write Here...",
-            'value' => set_value('article'),
+            'placeholder'   =>"Write Here...",
+            'value'         => set_value('article'),
             );
 
             echo form_textarea($data);
@@ -142,14 +155,11 @@
         <?php echo form_error('article', '<p class="text-danger">', '</p>') ?>
           
         </div>
-
-
         <div class="d-grid gap-2 my-3">
           <!-- <button class="btn btn-lg btn-primary" type="submit">Submit</button> -->
-
           <?php $data = array(
             'name'          => 'add',
-            'value'            => 'Add Article',
+            'value'         => 'Add Article',
             'type'          =>'submit',
             'class'         =>'btn btn-lg btn-primary',
             );
@@ -158,16 +168,23 @@
           ?>
         </div>
       </fieldset>
+
+
+
        <?= form_close(); ?>
     </div>
 
-
-
-  
    <?php include("admin_footer.php"); ?>
 
- <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');   ?>"></script> 
+ <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');?>"> </script>
+ 
+  <script>
+      CKEDITOR.replace( 'article', {
+        filebrowserUploadUrl: "<?=base_url('ckeditor/ck_upload.php'); ?>",
+        filebrowserUploadMethod: 'form'
 
 
+    });
+  </script>
 </body>
 </html>

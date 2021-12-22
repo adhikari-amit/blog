@@ -63,7 +63,8 @@ class Articlesmodel extends CI_Model{
         $category=$array['category'];
         $created_at=$array['created_at'];
         $image_path=$array['image_path'];
-        return  $this->db->insert('articles',['title'=>$title,'body'=>$body,'user_id'=>$user_id,'created_at'=>$created_at,'image_path'=>$image_path]);
+        $slug=$array['slug'];
+        return  $this->db->insert('articles',['title'=>$title,'author'=>$author,'categories'=>$category,'description'=>$description,'slug'=>$slug,'body'=>$body,'user_id'=>$user_id,'created_at'=>$created_at,'image_path'=>$image_path]);
     }
 
 
@@ -124,12 +125,12 @@ class Articlesmodel extends CI_Model{
         return $q->num_rows();   
     }
 
-    public function find($title)
+    public function find($slug)
     {
 
         $q=$this->db                    
                 -> from ('articles')
-                -> where(['title'=>$title])
+                -> where(['slug'=>$slug])
                 ->get();
         if($q->num_rows()){
 
@@ -251,6 +252,8 @@ class Articlesmodel extends CI_Model{
               return false;
         }
    }
+
+
 
 }
 

@@ -31,7 +31,7 @@
     
     <tr class="table-success">
       <th scope="row"><?= ++$count ?></th>
-      <td><?= anchor("user/article/{$article->title}" ,$article->title) ?></td>
+      <td><?= anchor("user/article/{$article->slug}" ,$article->title) ?></td>
       <td> <?= $article->created_at ?></td> 
 
     </tr>

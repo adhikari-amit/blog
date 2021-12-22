@@ -99,14 +99,11 @@ class User extends CI_Controller{
     }
 
 
-    public function article($article_name)
+    public function article($article_slug)
     {   
         $this->load->helper('form');
         $this->load->model('articlesmodel');
-
-        print_r($article_name);
-        exit;
-        $articles=$this->articlesmodel->find($article_name);
+        $articles=$this->articlesmodel->find($article_slug);
         $this->load->view('public/article_detail',['article'=>$articles]);
     }
 

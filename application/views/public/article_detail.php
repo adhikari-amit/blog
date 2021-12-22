@@ -14,9 +14,8 @@
    <p class="my-5 ms-5">Published On: <?= date($article->created_at) ?></p>
 
 
-   <div class="container">
-   	<p><?= $article->body ?></p>
-   </div>
+   <!-- <div class="container"> -->
+    <?php echo "($article->body)"; ?>
 
    <?php if(! is_null($article->image_path)): ?>
  
