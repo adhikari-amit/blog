@@ -98,8 +98,11 @@ class Admin extends CI_Controller {
     	} 
 
     	else{
+
+    		$category=$this->articlesmodel->category();
+            $authors=$this->articlesmodel->authors();
             $upload_error=$this->upload->display_errors();
-    		$this->load->view('admin/add_articles',compact('upload_error'));
+    		$this->load->view('admin/add_articles',['upload_error' => $upload_error,'category'=>$category,'authors'=> $authors]);
     	}
     }
 

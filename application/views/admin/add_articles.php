@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Articles</title>
 	<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
-  <script type="text/javascript" src="<?=base_url('assets/ckeditor/ckeditor.js');?>"> </script>
+  <script type="text/javascript" src="<?=base_url('ckeditor/ckeditor.js');?>"> </script>
 
 </head>
 <body>
@@ -67,6 +67,7 @@
         foreach ($authors as $author)
         {
          $options[$author->name] = $author->name;
+        
         }
 
           $data = array(
@@ -179,12 +180,15 @@
  <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');?>"> </script>
  
   <script>
-      CKEDITOR.replace( 'article', {
-        filebrowserUploadUrl: "<?=base_url('ckeditor/ck_upload.php'); ?>",
-        filebrowserUploadMethod: 'form'
+       CKEDITOR.replace( 'article',
+                {
+                   
+                    height: 300,
+                    filebrowserUploadUrl: " <?= base_url('ckeditor/ajax.php?type=file');  ?>",
+                    filebrowserImageUploadUrl:"<?= base_url('ckeditor/ajax.php?type=image')  ;?>" ,
 
-
-    });
+                }
+             );
   </script>
 </body>
 </html>

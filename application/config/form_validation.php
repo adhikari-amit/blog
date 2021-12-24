@@ -13,6 +13,25 @@ $config=[
                     'field'=>'article',
                     'label'=>'Article Body',
                     'rules'=>'required'
+                  ],
+
+                  [
+                    'field' =>'desc',
+                    'label' =>'Description',
+                    'rules' =>'required'
+                  
+                  ],
+
+                  [
+                    'field' =>'author',
+                    'label' =>'Author Name',
+                    'rules' =>'required',
+                  ],
+
+                  [
+                    'field' =>'category',
+                    'label' =>'Category',
+                    'rules' =>'required',
                   ]
        ],
 
