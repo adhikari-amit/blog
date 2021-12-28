@@ -36,7 +36,7 @@
       </tr>
     </thead>
     
-    <tbody>
+    <tbody>  
          <?php foreach ($authors as $author): ?> 
       <tr >
         <td><?= anchor("admin/author_detail/{$author->slug}" ,$author->name) ?></td>
@@ -61,3 +61,4 @@
 
 </body>
 </html>
+

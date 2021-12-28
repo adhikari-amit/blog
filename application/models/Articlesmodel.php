@@ -71,7 +71,6 @@ class Articlesmodel extends CI_Model{
     public function find_article($article_id)
     {
         $query=$this->db
-                     ->select(['id','title','body'])
                      ->from('articles')
                      ->where('id',$article_id)
                      ->get();

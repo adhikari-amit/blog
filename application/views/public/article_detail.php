@@ -12,17 +12,19 @@
    <div class="container">
    <h1 class="my-5 ms-5"><?= $article->title ?></h1>
    <p class="my-5 ms-5">Published On: <?= date($article->created_at) ?></p>
+   <p class="my-5 ms-5">Author:<?=($article->author) ?></p>
 
-
-  
-   <!-- <div class="container"> -->
-   <?= htmlspecialchars_decode($article->body) ?>
-
-   <?php if(! is_null($article->image_path)): ?>
- 
-    <div class="card text-center">
-      <img src="<?= $article->image_path ?>" alt="">
+   <div class="card text-center">
+      <img src="<?= $article->image_path ?>" alt="" style="height:445px; margin: 15px;">
   </div>
+  
+   <div class="container">
+   <?= htmlspecialchars_decode($article->body) ?>      
+ </div>
+
+   <!-- <?php if(! is_null($article->image_path)): ?> -->
+ 
+  
 </div>
    
     <?php endif?>
@@ -34,4 +36,6 @@
 
 </body>
 </html>
+
+
 

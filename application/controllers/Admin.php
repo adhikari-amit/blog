@@ -108,9 +108,11 @@ class Admin extends CI_Controller {
 
     
     public function edit_article($article_id)
-    {
+    {  
+       $category=$this->articlesmodel->category();
+       $authors=$this->articlesmodel->authors();
        $article=$this->articlesmodel->find_article($article_id);
-       $this->load->view('admin/edit_articles',['article'=>$article]);
+       $this->load->view('admin/edit_articles',['article'=>$article,'category'=>$category,'authors'=>$authors]);
     }
     
     public function update_article()
