@@ -21,7 +21,7 @@
    <?php if(! is_null($authors->image_path)): ?>
  
     <div class="card ">
-      <img src="<?= $authors->image_path ?>" alt="" class='figure-img img-fluid rounded' style='height: 350px; width: 350px;'>
+      <img src="<?= $authors->image_path ?>" alt="" class='figure-img img-fluid rounded' style='height: 350px; width: 350px; margin:auto;'>
   </div>
 </div>
    

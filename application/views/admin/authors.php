@@ -27,12 +27,12 @@
 
  <div class="container"> 
 
-    <table class="table table-hover">
+    <table class="table table-hover" style="width: 100%;">
     <thead>
       <tr>
-        <th class="text-danger" scope="col">Name</th>
-        <th class="text-danger" scope="col">Bio</th>
-        <th scope="col">Action</th>
+        <th class="text-danger" scope="col" style="width: 15%;">Name</th>
+        <th class="text-danger" scope="col" style="width: 70%;" >Bio</th>
+        <th scope="col" style="width: 15%;">Action</th>
       </tr>
     </thead>
     

@@ -18,7 +18,7 @@
    <?php if(! is_null($category->image_path)): ?>
  
     <div class="card text-center">
-      <img src="<?= $category->image_path ?>" alt=""class='figure-img img-fluid rounded' style='height: 550px; width:750px;'>
+      <img src="<?= $category->image_path ?>" alt=""class='figure-img img-fluid rounded' style='height: 550px; width:750px; margin: auto;'>
   </div>
 </div>
    

@@ -14,8 +14,9 @@
    <p class="my-5 ms-5">Published On: <?= date($article->created_at) ?></p>
 
 
+  
    <!-- <div class="container"> -->
-    <?php echo "($article->body)"; ?>
+   <?= htmlspecialchars_decode($article->body) ?>
 
    <?php if(! is_null($article->image_path)): ?>
  
@@ -33,3 +34,4 @@
 
 </body>
 </html>
+

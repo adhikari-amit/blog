@@ -118,7 +118,7 @@
 
             echo form_input($data);
          ?>
-        <?php echo form_error('category', '<p class="text-danger">', '</p>') ?>
+        <?php echo form_error('created_at', '<p class="text-danger">', '</p>') ?>
 
         </div>
 
