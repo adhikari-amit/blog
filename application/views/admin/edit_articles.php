@@ -136,7 +136,8 @@
           <label  class="form-label mt-4">Image</label>
          <?php $data = array(
             'name'          => 'image',          
-            'class'         =>'form-control',        
+            'class'         =>'form-control',
+            'value'         => set_value('image',$article->image_path),        
             );
 
             echo form_upload($data);

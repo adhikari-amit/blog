@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Articles</title>
 	<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap-tagsinput.css'); ?>" >
   <script type="text/javascript" src="<?=base_url('ckeditor/ckeditor.js');?>"> </script>
 
 </head>
@@ -156,8 +157,28 @@
         <?php echo form_error('article', '<p class="text-danger">', '</p>') ?>
           
         </div>
+
+        <div class="form-group">
+          <label class="form-label mt-4">Tags</label>
+          <input type="text" data-role="tagsinput" class='form-control' placeholder="Add tags">
+        </div>
+        <div class="form-group">
+        <label  class="form-label mt-4">Slug</label>
+         <?php $data = array(
+            'name'          => 'slug',
+            'id'            => 'slug',
+            'class'         =>'form-control',
+            'placeholder'   =>"Enter Slug",
+            'value'         => set_value('slug'),
+            );
+
+            echo form_input($data);
+         ?>
+        <?php echo form_error('slug', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+
         <div class="d-grid gap-2 my-3">
-          <!-- <button class="btn btn-lg btn-primary" type="submit">Submit</button> -->
           <?php $data = array(
             'name'          => 'add',
             'value'         => 'Add Article',
@@ -190,6 +211,12 @@
                 }
              );
   </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+ <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap-tagsinput.min.js');?>"> </script>
+
 </body>
 </html>
 

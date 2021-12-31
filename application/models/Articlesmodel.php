@@ -124,6 +124,18 @@ class Articlesmodel extends CI_Model{
         return $q->num_rows();   
     }
 
+    public function update_counter($slug)
+    {   
+
+
+        $this->db->where('slug', urldecode($slug));
+        $this->db->select('article_views');
+        $count = $this->db->get('articles')->row();
+        $this->db->where('slug', urldecode($slug));
+        $this->db->set('article_views', ($count->article_views + 1));
+        $this->db->update('articles');
+    }
+
     public function find($slug)
     {
 

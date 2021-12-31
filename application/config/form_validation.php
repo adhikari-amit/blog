@@ -32,8 +32,49 @@ $config=[
                     'field' =>'category',
                     'label' =>'Category',
                     'rules' =>'required',
+                  ],
+
+                  [
+                    'field' =>'slug',
+                    'label' =>'Slug',
+                    'rules' =>'required|alpha_numeric'
+
                   ]
        ],
+      
+       'update_articles_rules' =>[
+
+                  [ 
+                    'field'=>'title',
+                    'label'=>"Title",
+                    'rules'=>'required|alpha_numeric_spaces'
+                  ],
+                  [
+                    'field'=>'article',
+                    'label'=>'Article Body',
+                    'rules'=>'required'
+                  ],
+
+                  [
+                    'field' =>'desc',
+                    'label' =>'Description',
+                    'rules' =>'required'
+                  
+                  ],
+
+                  [
+                    'field' =>'author',
+                    'label' =>'Author Name',
+                    'rules' =>'required',
+                  ],
+
+                  [
+                    'field' =>'category',
+                    'label' =>'Category',
+                    'rules' =>'required',
+                  ],
+       ],
+
 
        'login_form_rules' =>[
 

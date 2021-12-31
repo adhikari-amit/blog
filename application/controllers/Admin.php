@@ -5,7 +5,7 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{   
-	
+	  return redirect('admin/dashboard');
 	}
 
 	public function dashboard()
@@ -56,16 +56,6 @@ class Admin extends CI_Controller {
     public function store_article()
     {   
 
-        function fixForUrl($string)
-        {
-            $slug = trim($string);
-            $slug= preg_replace('/[^a-zA-Z0-9 -]/','',$slug );
-            $slug= str_replace(' ','-', $slug);
-            $slug= strtolower($slug);
-            return $slug ;
-                                
-        }
-
         $config=[
 
                 'upload_path' => './uploads/articles',
@@ -83,7 +73,6 @@ class Admin extends CI_Controller {
              $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
 
              $post['image_path']=$image_path;
-             $post['slug']=fixForUrl($post['title']);
             
              if($this->articlesmodel->add_article($post)){
                   
@@ -117,12 +106,11 @@ class Admin extends CI_Controller {
     
     public function update_article()
     {
-   
-        
+          
     	$this->load->library('form_validation');
-    	if($this->form_validation->run('add_articles_rules')){
+    	if($this->form_validation->run('update_articles_rules')){
              
-             $post=$this->input->post();
+            $post=$this->input->post();
 
              if($this->articlesmodel->update_article($post)){
                 
@@ -137,8 +125,13 @@ class Admin extends CI_Controller {
     	} 
 
     	else{
-
-    		$this->load->view('admin/add_articles');
+           
+           $post=$this->input->post();
+           $article_id=$post['article_id'];
+    	   $category=$this->articlesmodel->category();
+	       $authors=$this->articlesmodel->authors();
+	       $article=$this->articlesmodel->find_article($article_id);
+	       $this->load->view('admin/edit_articles',['article'=>$article,'category'=>$category,'authors'=>$authors]);
     	}
 
 

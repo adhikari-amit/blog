@@ -104,9 +104,31 @@ class User extends CI_Controller{
         $this->load->helper('form');
         $this->load->model('articlesmodel');
         $articles=$this->articlesmodel->find($article_slug);
+        $this->add_count($article_slug);
         $this->load->view('public/article_detail',['article'=>$articles]);
     }
+     
 
+  
+    function add_count($article_slug)
+    {
+   
+        $this->load->helper('cookie');
+        $check_visitor = $this->input->cookie(urldecode($article_slug), FALSE);
+        $ip = $this->input->ip_address();
+  
+        if ($check_visitor == false) {
+            $cookie = array(
+                "name"   => urldecode($article_slug),
+                "value"  => "$ip",
+                "expire" =>  time() + 3600*24,
+                "secure" => false
+            );
+            $this->input->set_cookie($cookie);
+            $this->load->model('articlesmodel');
+            $this->articlesmodel->update_counter(urldecode($article_slug));
+        }
+    }
 
 }
 
