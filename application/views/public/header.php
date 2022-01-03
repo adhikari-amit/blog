@@ -1,53 +1,81 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="<?= base_url('user')?>">Artículos</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <!-- Primary Page Layout
+  ================================================== -->  
+    <!-- Switch Panel -->
+    <div id="switch">
+        <div class="content-switcher">        
+      <p>Color Options:</p>
+      <ul class="header">           
+        <li><a href="#" onclick="setActiveStyleSheet('1'); return false;" class="button color switch" style="background-color:#cfa144"></a></li>
+        <li><a href="#" onclick="setActiveStyleSheet('2'); return false;" class="button color switch" style="background-color:#9b59b6"></a></li>
+        <li><a href="#" onclick="setActiveStyleSheet('3'); return false;" class="button color switch" style="background-color:#2ecc71"></a></li>
+        <li><a href="#" onclick="setActiveStyleSheet('4'); return false;" class="button color switch" style="background-color:#e74c3c"></a></li>
+        <li><a href="#" onclick="setActiveStyleSheet('5'); return false;" class="button color switch" style="background-color:#34495e"></a></li> 
+        <li><a href="#" onclick="setActiveStyleSheet('6'); return false;" class="button color switch" style="background-color:#f1c40f"></a></li>
+        <li><a href="#" onclick="setActiveStyleSheet('7'); return false;" class="button color switch" style="background-color:#3498db"></a></li>
+      </ul>        
+      <div class="clear"></div>    
+      <div id="hide">
+        <img src="<?= base_url('assets/images/close.png');?>" alt=""> 
+      </div>
+        </div>
+  </div>
+  <div id="show" style="display: block;">
+        <div id="setting"></div>
+    </div>
+    <!-- Switch Panel --> 
 
-    <div class="collapse navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="<?= base_url('user')?>">articles
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        
-      <?php
-        if(! $this->session->userdata('user_id')):  ?>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('login')?>">Login</a>
-        </li>
-      <?php else :?>
-         <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('admin/dashboard')?>">Dashboard</a>
-        </li>
-      <?php endif ?>  
-        
-      </ul>
 
-      <?php echo form_open('user/search',['class'=>'d-flex']); ?>
+    
+  
+  <!-- MENU
+    ================================================== -->  
+  
+  <div class="header-top">
+  
+    <header class="cd-main-header grey-2-section">
+      <a class="cd-logo animsition-link" href="<?= base_url('blog');?>"><img src="<?=base_url('assets/images/logo.png');?>" alt="Logo"></a>
+
+      <nav class="cd-nav">
+      <ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
+        <li>
+          <a href="<?= base_url('blog');?>" class="animsition-link">Home</a>
+        </li>
+        
+        <li>
+          <a href="" class="animsition-link">Contact</a>
+        </li>
+      </ul> <!-- primary-nav -->
+    </nav><ul class="cd-header-buttons">
+        <li><a class="cd-search-trigger" href="#cd-search"><span></span></a></li>
+        <li><a class="cd-nav-trigger" href="#cd-primary-nav"><span></span></a></li>
+      </ul> <!-- cd-header-buttons -->
+    </header>
+    
+     <!-- cd-nav -->
+
+    <div id="cd-search" class="cd-search">
+     <!--  <form>
+        <input type="search" placeholder="Search...">
+      </form> -->
+
+        <?php echo form_open('blog/search'); ?>
         <?php $data = array(
             'name'          => 'query',
             'id'            => 'query',
-            'class'         =>'form-control me-sm-2',
-            'placeholder'   =>"Search",
+            // 'class'         =>'form-control me-sm-2',
+            'placeholder'   =>"Search..",
             'type'          =>"text",
             'value' => set_value('query'),
             );
 
             echo form_input($data);
         ?>
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <!-- <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> -->
       <?= form_close(); ?>
-    </div>
+
+    </div>  
+  
   </div>
-</nav>
+
+  
+  

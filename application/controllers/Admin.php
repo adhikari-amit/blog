@@ -73,7 +73,8 @@ class Admin extends CI_Controller {
              $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
 
              $post['image_path']=$image_path;
-            
+             // print_r($post);
+             // exit;
              if($this->articlesmodel->add_article($post)){
                   
                  $this->session->set_flashdata('success',"Article Inserted Successfully"); 	

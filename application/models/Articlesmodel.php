@@ -7,7 +7,7 @@ class Articlesmodel extends CI_Model{
 
         $query=$this->db
                     ->select(['title','id'])
-                    -> from ('articles')
+                    ->from('articles')
                     ->get();
 
         return $query->num_rows();    
@@ -23,8 +23,29 @@ class Articlesmodel extends CI_Model{
 
         return $query->result();    
    }
+   public function category_article($limit,$offset,$category)
+   {
+        $query=$this->db
+                    ->from ('articles')
+                    ->limit($limit,$offset)
+                    ->where('categories',$category)
+                    ->order_by('created_at','DESC')
+                    ->get();
 
+        return $query->result();    
 
+   }
+    public function related_articles($category)
+    {
+        $query=$this->db
+                    ->from ('articles')
+                    ->where('categories',$category)
+                    ->order_by('id','DESC') 
+                    ->limit(3)
+                    ->get();
+        return $query->result();            
+    }
+   
     public function article_list($limit,$offset)
     {
          
@@ -64,7 +85,14 @@ class Articlesmodel extends CI_Model{
         $created_at=$array['created_at'];
         $image_path=$array['image_path'];
         $slug=$array['slug'];
-        return  $this->db->insert('articles',['title'=>$title,'author'=>$author,'categories'=>$category,'description'=>$description,'slug'=>$slug,'body'=>$body,'user_id'=>$user_id,'created_at'=>$created_at,'image_path'=>$image_path]);
+        $tag=$array['tag'];
+        $this->db->insert('articles',['title'=>$title,'author'=>$author,'categories'=>$category,'description'=>$description,'slug'=>$slug,'body'=>$body,'user_id'=>$user_id,'created_at'=>$created_at,'image_path'=>$image_path]);
+
+        $this->db->where('title', $title);
+        $this->db->select('id');
+        $count = $this->db->get('articles')->row();
+        $this->db->insert('article_tag',['article_id' => $count->id,'tag'=>$tag]);
+        return TRUE;
     }
 
 
@@ -77,7 +105,16 @@ class Articlesmodel extends CI_Model{
 
         return $query->row();             
     }
+    public function find_article_tag($article_id)
+    {
+         $query=$this->db
+                     ->from('article_tag')
+                     ->where('article_id',$article_id)
+                     ->get();
 
+        return $query->row();     
+
+    }
 
     public function update_article($article)
     { 
@@ -98,7 +135,16 @@ class Articlesmodel extends CI_Model{
                     ->where('id',$article_id)
                     ->delete('articles');
     }
-
+    public function topsix()
+    {
+        $q=$this->db
+                ->from('articles')
+                ->order_by('id','DESC') 
+                ->limit(6)
+                ->get();
+                
+        return $q->result();            
+    }
 
     public function search($query,$limit,$offset)
     {
