@@ -1,5 +1,4 @@
-  <!-- Primary Page Layout
-  ================================================== -->  
+  <!-- ====================== Primary Page Layout ============================ -->  
     <!-- Switch Panel -->
     <div id="switch">
         <div class="content-switcher">        
@@ -23,16 +22,11 @@
         <div id="setting"></div>
     </div>
     <!-- Switch Panel --> 
-
-
-    
-  
-  <!-- MENU
-    ================================================== -->  
+      
+  <!-- ======================== MENU ========================== -->  
   
   <div class="header-top">
-  
-    <header class="cd-main-header grey-2-section">
+      <header class="cd-main-header grey-2-section">
       <a class="cd-logo animsition-link" href="<?= base_url('blog');?>"><img src="<?=base_url('assets/images/logo.png');?>" alt="Logo"></a>
 
       <nav class="cd-nav">
@@ -54,23 +48,17 @@
      <!-- cd-nav -->
 
     <div id="cd-search" class="cd-search">
-     <!--  <form>
-        <input type="search" placeholder="Search...">
-      </form> -->
-
-        <?php echo form_open('blog/search'); ?>
+        <?php echo form_open('blog/search_item'); ?>
         <?php $data = array(
             'name'          => 'query',
             'id'            => 'query',
-            // 'class'         =>'form-control me-sm-2',
             'placeholder'   =>"Search..",
             'type'          =>"text",
             'value' => set_value('query'),
             );
 
-            echo form_input($data);
+            echo form_input($data);          
         ?>
-      <!-- <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> -->
       <?= form_close(); ?>
 
     </div>  

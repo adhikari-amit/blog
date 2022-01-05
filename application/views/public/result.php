@@ -31,61 +31,128 @@
   <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-7.css');   ?>"   title="7" disabled="">
   
 </head>
-
 <body>
-   <div class="animsition">
-   <?php include("header.php"); ?>
-      <main class="cd-main-content">
-        <br>
-       <section class="section white-section section-padding-top-bottom">      
-         <div class="container">
-          <?php echo form_open('login/admin_login'); ?>            
-               <div class="blog-big-wrapper grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <h6>Admin Login</h6>                   
-                   <?php  if($error=$this->session->flashdata('login_faild')): ?>
-                      <div class="alert alert-dismissible alert-danger">
-                        <strong>Oh snap! </strong> <a href="#" class="alert-link"><?= $error ?></a>. try submitting again.
-                      </div>
-                   <?php endif; ?>
+    <div class="animsition">
+    <?php include("header.php"); ?>
+      
+   <main class="cd-main-content">
+  
 
-                  <?php $data = array(
-                    'name'          => 'username',
-                    'id'            => 'username',
-                    'type'          => 'text',
-                    'placeholder'   =>"NAME",
-                    'value'         => set_value('username'),
-                    );
-
-                    echo form_input($data);
-                  ?>
-                  <?php echo form_error('username', '<p>', '</p>') ?>
-                  <!-- <input name="email" type="text"   placeholder="EMAIL *"> -->
-                  <?php $data = array(
-                    'name'          => 'password',
-                    'id'            => 'password',
-                    'type'          => 'password',
-                    'placeholder'   => "PASSWORD",
-                    );
-
-                    echo form_input($data);
-                  ?>
-                  <?php echo form_error('password', '<p>', '</p>') ?>
-                  <!-- <button type="submit" class="post-comment">Login</button> -->
-                  <?php $data = array(
-                    'name'          => 'submit',
-                    'value'         => 'Login',
-                    'type'          => 'submit',
-                    'class'         => 'post-comment',
-                   );
-                  echo form_submit($data);
-                  ?>
+  <!--======================= SECTION =========================== -->  
+    <section class="section white-section section-padding-top-bottom">
+    
+      <div class="container">
+        <div class="sixteen columns">
+          <div id="portfolio-filter">
+            <ul id="filter">
+              <li><a href="#" class="current" data-filter="*" title="">Show All</a></li>
+              <li><a href="#" data-filter=".photo" title="">Photo</a></li>
+              <li><a href="#" data-filter=".media" title="">Media</a></li>
+              <li><a href="#" data-filter=".news" title="">News</a></li>
+              <li><a href="#" data-filter=".links" title="">Links</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="clear"></div>      
+      <div class="container">
+        <div class="twelve columns remove-top">
+          <div class="blog-wrapper">
+            <div id="blog-grid-masonry" style="position: relative; overflow: hidden; height: 2004px;" class="isotope">
+            <?php if(! $articles == []): ?>  
+            <?php foreach ($articles as $article): ?>
+              <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
+                <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                  <div class="blog-box-1 grey-section">
+                    <!-- <img src="<?=$article->image_path ?>" alt=" "> -->
+                    <div class="blog-date-1"><?=$article->created_at  ?></div>
+                    <div class="blog-comm-1"><?=$article->article_views ?><span>&#128064;</span></div>
+                    <h6><?=$article->title ?></h6>
+                    <p><?=$article->description ?></p><div class="link">&#10149;</div>
+                  </div>
                 </div>
-             </div>
-            <?= form_close(); ?>
-           </div>
-        </section>       
-   <?php include("footer.php"); ?>
+              </a>
+            <?php endforeach; ?>
+          <?php else : ?>
+
+            
+          <a href='#' class="animsition-link">
+                <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                  <div class="blog-box-1 grey-section">
+                    <div class="blog-date-1">Nothing to Show!!</div> 
+                    <h6>No articles Found</h6>
+                  </div>
+                </div>
+          </a>
+
+          <?php endif; ?>
+            </div>
+          </div>
+        </div>
+        <div class="four columns">
+          <div class="post-sidebar">
+            <div class="separator-sidebar"></div>
+            <h6>Categories</h6>
+            <ul class="link-recents">
+              <?php foreach ($categories as $category): ?>
+                <li><a href='<?= base_url("blog/category/{$category->title}") ?>' ><?= $category->title ?></a></li>
+              <?php endforeach; ?>
+            </ul>
+
+            <div class="separator-sidebar"></div>
+            <h6>recent posts</h6>
+            <ul class="link-recents">
+              <?php foreach ($new_articles as $newarticle): ?>
+              <li><a href='<?= base_url("blog/article/{$newarticle->slug}") ?>'><?= $newarticle->title ?></a></li>
+               <?php endforeach; ?>
+            </ul>
+            
+            
+            <div class="separator-sidebar"></div>
+            <h6>tags</h6>
+            <ul class="link-tag">
+              <li><a href="#">Art</a></li>  
+              <li><a href="#">Articles</a></li>  
+              <li><a href="#">Audio</a></li> 
+              <li><a href="#">Business</a></li>  
+              <li><a href="#">Culture</a> </li> 
+              <li><a href="#">Development</a> </li> 
+              <li><a href="#">Ecology</a></li>  
+              <li><a href="#">Events</a> </li> 
+              <li><a href="#">Information</a> </li> 
+              <li><a href="#">Inspiration</a></li>  
+              <li><a href="#">Nature</a> </li> 
+              <li><a href="#">Opportunities</a> </li> 
+              <li><a href="#">Science</a> </li> 
+              <li><a href="#">Trends</a> </li> 
+              <li><a href="#">Video</a></li> 
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>    
+        
+
+  <!-- SECTION
+    ================================================== -->  
+  
+    <section class="section grey-section section-padding-top-bottom">
+    
+      <div class="container">
+        <div class="sixteen columns">
+          <!-- <div class="blog-left-right-links">
+            <a href="#"><div class="blog-left-link"><p>older</p></div></a>
+            <a href="#"><div class="blog-right-link"><p>newer</p></div></a>
+
+          </div> -->
+           <?= $this->pagination->create_links(); ?>
+        </div>
+      </div>
+      
+    </section>    
+ 
+    <?php include("footer.php"); ?>
 
   </main>  
     <div class="scroll-to-top">&#xf106;</div>

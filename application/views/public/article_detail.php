@@ -74,17 +74,19 @@
                   <div class="social-share">
                      <span>share:</span>
                      <ul class="list-social-share">
+                       
                         <li class="icon-soc-share">
-                           <a href="#"><i class="fab fa-google"></i> </a>
+                           <a href="" target="_blank" class="facebook-btn">
+                              <i class="fab fa-facebook"></i>
+                           </a>
+                        </li>
+                          <li class="icon-soc-share">
+                           <a href="" target="_blank" class="twitter-btn">
+                               <i class="fab fa-twitter"></i>
+                           </a>
                         </li>
                         <li class="icon-soc-share">
-                           <a href="#"><i class="fab fa-telegram"></i></a>
-                        </li>
-                        <li class="icon-soc-share">
-                           <a href="#"><i class="fab fa-twitter"></i></a>
-                        </li>
-                        <li class="icon-soc-share">
-                           <a href="#"><i class="fab fa-whatsapp"></i></a>
+                           <a href="#" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i></a>
                         </li>
                      </ul>
                   </div>            
@@ -141,14 +143,7 @@
                         <li><a href='<?= base_url("blog/article/{$newarticle->slug}") ?>'><?= $newarticle->title ?></a></li>
                      <?php endforeach; ?>
                    </ul>
-                  <div class="separator-sidebar"></div>
-                  <h6>LATEST PROJECTS</h6>
-                  <ul class="lat-pro">                
-                     <li><a href="#"><div class="lat-pro-img"><img  src="images/portfolio/1.jpg" alt="" /></div></a></li>     
-                     <li><a href="#"><div class="lat-pro-img"><img  src="images/portfolio/2.jpg" alt="" /></div></a></li>     
-                     <li><a href="#"><div class="lat-pro-img"><img  src="images/portfolio/3.jpg" alt="" /></div></a></li>     
-                     <li><a href="#"><div class="lat-pro-img"><img  src="images/portfolio/4.jpg" alt="" /></div></a></li> 
-                  </ul>
+                 
                   
                   <div class="separator-sidebar"></div>
                   <h6>tags</h6>
@@ -186,12 +181,9 @@
                   <h3>Related Posts</h3>
                </div>
             </div>
-            
-
-            <?php foreach ($related_articles as $key): ?>
-               
+            <?php foreach ($related_articles as $key): ?>               
             <div class="one-third column" data-scroll-reveal="enter left move 200px over 1s after 0.3s">
-               <a href="image-post.html" class="animsition-link">
+               <a href='<?= base_url("blog/article/{$key->slug}") ?>' class="animsition-link">
                   <div class="blog-box-1 white-section">
                      <img src="<?=$key->image_path ?>"  alt="">
                      <div class="blog-date-1"><?= $key->created_at?></div>
@@ -202,10 +194,7 @@
                   </div>
                </a>
             </div>
-
-            <?php endforeach; ?>
-          
-            
+            <?php endforeach; ?>                      
          </div>
       </section>    
       
@@ -261,7 +250,7 @@
 <script type="text/javascript" src="<?=base_url('assets/js/owl.js'); ?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/masonry.js'); ?>"></script> 
 <script type="text/javascript" src="<?=base_url('assets/js/isotope.js'); ?>"></script> 
-<script type="text/javascript" src="<?=base_url('assets/js/scrollReveal.js'); ?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/scrollReveal.js'); ?>"></script> 
 <script type="text/javascript" src="<?=base_url('assets/js/jquery.js'); ?>"></script>
 <script type="text/javascript">
 (function($) { "use strict";
@@ -291,9 +280,12 @@
 </script>
 
 <script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');         ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>     
+<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/socialmedia.js')  ;?>"></script>     
 <!-- ========================= End Document ========================= -->
 
+
+<!-- ========================= Share Button ========================= -->
 </body>
 </html>
 

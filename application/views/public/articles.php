@@ -38,8 +38,7 @@
     
    <main class="cd-main-content">
   
-  <!-- TOP SECTION
-    ================================================== -->  
+  <!-- ========================== TOP SECTION ======================== -->  
       <section class="section parallax-section parallax-section-padding-top-bottom-pagetop section-page-top-title">
     
       <div class="parallax-blog-2" style="background-position: 50% 0px;"></div>
@@ -68,8 +67,7 @@
         
     </section>  
 
-  <!-- SECTION
-    ================================================== -->  
+  <!-- ========================= SECTION ========================= -->  
   
     <section class="section white-section section-padding-top-bottom">
     
@@ -92,19 +90,30 @@
         <div class="twelve columns remove-top">
           <div class="blog-wrapper">
             <div id="blog-grid-masonry" style="position: relative; overflow: hidden; height: 2004px;" class="isotope">
-                <?php foreach ($articles as $article): ?>
-              <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
-                <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
-                  <div class="blog-box-1 grey-section">
-                    <img src="<?= $article->image_path ?>" alt=" ">
-                    <div class="blog-date-1"><?=$article->created_at  ?></div>
-                    <div class="blog-comm-1"><?=$article->article_views ?><span>&#128064;</span></div>
-                    <h6><?=$article->title ?></h6>
-                    <p><?=$article->description ?></p><div class="link">&#10149;</div>
+              <?php if(! $articles == []): ?>  
+              <?php foreach ($articles as $article): ?>
+                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
+                  <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                    <div class="blog-box-1 grey-section">
+                      <img src="<?= $article->image_path ?>" alt=" ">
+                      <div class="blog-date-1"><?=$article->created_at ?></div>
+                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
+                      <h6><?=$article->title ?></h6>
+                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
+                    </div>
                   </div>
-                </div>
+                </a>
+             <?php endforeach; ?>
+             <?php else : ?>            
+              <a href='' class="animsition-link">
+                    <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                      <div class="blog-box-1 grey-section">
+                        <div class="blog-date-1">Sorry !!</div> 
+                        <h6>No articles to show</h6>
+                      </div>
+                    </div>
               </a>
-            <?php endforeach; ?>
+            <?php endif; ?>
             </div>
           </div>
         </div>
@@ -114,7 +123,7 @@
             <h6>Categories</h6>
             <ul class="link-recents">
               <?php foreach ($categories as $category): ?>
-                <li><a href='<?= base_url("blog/category/{$category->title}") ?>' ><?= $category->title ?></a></li>
+                <li><a href='<?= base_url("blog/category/{$category->title}") ?>' ><?=$category->title ?></a></li>
               <?php endforeach; ?>
             </ul>
 
@@ -152,18 +161,12 @@
     </section>    
         
 
-  <!-- SECTION
-    ================================================== -->  
+  <!-- ========================= SECTION ========================= -->  
   
     <section class="section grey-section section-padding-top-bottom">
     
       <div class="container">
         <div class="sixteen columns">
-          <!-- <div class="blog-left-right-links">
-            <a href="#"><div class="blog-left-link"><p>older</p></div></a>
-            <a href="#"><div class="blog-right-link"><p>newer</p></div></a>
-
-          </div> -->
            <?= $this->pagination->create_links(); ?>
         </div>
       </div>
@@ -181,8 +184,7 @@
   
   
     
-  <!-- JAVASCRIPT
-    ================================================== -->
+  <!-- ======================= JAVASCRIPT =========================== -->
 <div class="fit-vids-style" id="fit-vids-style" style="display: none;">­<style>.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></div>
 <script type="text/javascript" src="<?=base_url('assets/js/jquery-2.js');    ?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/modernizr.js');  ?>"></script> 
@@ -256,7 +258,6 @@
 
 <script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');         ?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>     
-<!-- End Document
-================================================== -->
+<!-- ========================= End Document ========================= -->
 
 </body></html>

@@ -26,14 +26,6 @@ class Blog extends CI_Controller{
             'next_tag_close' =>"</div>",
 
             'display_pages'  => FALSE,
-            // 'num_tag_open'   => "<li class='page-item'>",
-            // 'num_tag_close'  =>"</li>",
-
-            // 'cur_tag_open'   => "<li class='page-item active'><a class='page-link'>",
-            // 'cur_tag_close'  =>"</a></li>",
-             
-             // For adding class to every anchar tag
-            // 'attributes'   =>  array('class' => 'page-link'),
         ];
         
         $this->pagination->initialize($config);
@@ -44,59 +36,56 @@ class Blog extends CI_Controller{
 
     }
 
-    public function search()
+    public function search_item()
     {
 
-      $this->load->library('form_validation');
-      $this->form_validation->set_rules('query','Query','required');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('query','Query','required');
 
-      if(!$this->form_validation->run()){
-        return $this->index();
-      }
+        if(!$this->form_validation->run()){
+          return $this->index();
+        }
       
-      $query=$this->input->post('query');
-
-      return redirect ("blog/search_results/$query");
+        $query=$this->input->post('query');
+        if($query){
+            return redirect ("blog/search/$query");
+        }
+        else{
+            return redirect("blog/index");
+        }
     }
 
-    public function search_results($query)
+    public function search($query)
     {
 
         $this->load->helper('form');
         $this->load->model('articlesmodel');
         $this->load->library('pagination');
-        $config=[
+         $config=[
 
-            'base_url'       => base_url("blog/search_results/$query"),
-            'per_page'       => 5,
-            'uri_segment'    =>4,
-            'total_rows'     =>$this->articlesmodel->numofrows_searched_articles($query),
+            'base_url'       => base_url("blog/search/$query"),
+            'per_page'       => 8,
+            'total_rows'     =>$this->articlesmodel->numofrows_all_articles(),
 
-            'full_tag_open'  => "<ul class='pagination pagination-sm'>",
-            'full_tag_close' =>"</ul>",             
+            'full_tag_open'  => "<div class='blog-left-right-links'>",  
+            'full_tag_close' => "</div>",             
             
-            'prev_link'      =>'&laquo;',
-            'prev_tag_open'  => "<li class='page-item'>",
-            'prev_tag_close' =>'</li>',
+            'prev_link'      => "<p> Newer </p>",
+            'prev_tag_open'  => "<div class='blog-left-link'>", 
+            'prev_tag_close' =>"</div>",
              
-            'next_link'      =>'&raquo;' ,
-            'next_tag_open'  => "<li class='page-item'>",
-            'next_tag_close' =>'</li>',
+            'next_link'      =>'<p> Older </p>' ,
+            'next_tag_open'  => "<div class='blog-right-link'>",
+            'next_tag_close' =>"</div>",
 
-
-            'num_tag_open'   => "<li class='page-item'>",
-            'num_tag_close'  =>"</li>",
-
-            'cur_tag_open'   => "<li class='page-item active'><a class='page-link'>",
-            'cur_tag_close'  =>"</a></li>",
-             
-             // For adding class to every anchar tag
-            'attributes'   =>  array('class' => 'page-link'),
+            'display_pages'  => FALSE,
         ];
         
         $this->pagination->initialize($config);
         $articles=$this->articlesmodel->search($query,$config['per_page'],$this->uri->segment(4));
-        $this->load->view('public/search_result',['articles'=>$articles]);
+        $new_articles=$this->articlesmodel->topsix();
+        $categories=$this->articlesmodel->category();
+        $this->load->view('public/result',['articles'=>$articles,'categories'=>$categories,'new_articles'=>$new_articles]);
 
     }
 

@@ -150,7 +150,6 @@ class Articlesmodel extends CI_Model{
     {
 
         $q=$this->db
-                ->select(['id','title','body','created_at'])
                 ->from('articles')
                 ->like('title',$query)
                 ->limit($limit,$offset)
