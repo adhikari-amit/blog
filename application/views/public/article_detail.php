@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>Clymene</title>
+  <title>Articulos</title>
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -90,41 +90,73 @@
                         </li>
                      </ul>
                   </div>            
-               </div>   
+               </div>
+
                <div class="post-content-com-top grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">   
                   <p>COMMENTS <span>(3)</span></p>
-               </div>   
-               
-               <div class="post-content-comment grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <img  src="images/team11.jpg" alt="" />
-                  <h6>ALEX ANDREWS</h6>   
-                  <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>  
-                  <a href="#"><div class="reply">reply</div></a>
-               </div>   
-               
-               <div class="post-content-comment reply-in grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <img  src="images/team22.jpg" alt="" />
-                  <h6>KARA KULIS</h6>
-                  <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p> 
-                  <a href="#"><div class="reply">reply</div></a>
                </div>
-               
+                  
+               <?php foreach ($comments as $comment): ?>
                <div class="post-content-comment grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <img  src="images/team33.jpg" alt="" />
-                  <h6>FRANK FURIOUS</h6>
-                  <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p> 
-                  <a href="#"><div class="reply">reply</div></a>
-               </div>
-               
+                  <h6><?=$comment->user_name ?></h6>   
+                  <p><?= $comment->comments?></p>  
+               </div>                  
+              <?php endforeach ;?>
+
+               <?php echo form_open('blog/add_comments'); ?> 
                <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
                   <h6>LEAVE A REPLY</h6>
-                  <p>Your email address will not be published. Required fields are marked *</p> 
-                  <input name="name" type="text"   placeholder="NAME *"/>
-                  <input name="email" type="text"   placeholder="EMAIL *"/>
-                  <input name="website" type="text"   placeholder="website"/>
-                  <textarea name="website"  placeholder="COMMENT"></textarea>
-                  <button class="post-comment">post comment</button>
+                  <p>Your email address will not be published. Required fields are marked *</p>
+                  <?php echo form_hidden('article_id',$article->id );?>
+                  <?php echo form_hidden('time',date("Y/m/d")); ?>
+                  <?php echo form_hidden('article_slug',$article->slug ); ?>
+                   <?php $data = array(
+                    'name'          => 'name',
+                    'id'            => 'name',
+                    'type'          => 'text',
+                    'placeholder'   =>"NAME *",
+                    'value'         => set_value('name'),
+                    );
+
+                    echo form_input($data);
+                  ?>
+                  <?php echo form_error('name', '<p>', '</p>') ?> 
+                   <?php $data = array(
+                    'name'          => 'email',
+                    'id'            => 'email',
+                    'type'          => 'email',
+                    'placeholder'   =>"EMAIL *",
+                    'value'         => set_value('email'),
+                    );
+
+                    echo form_input($data);
+                  ?>
+                  <?php echo form_error('email', '<p>', '</p>') ?>
+                 
+                  <?php $data = array(
+                    'name'          => 'comment',
+                    'id'            => 'comment',
+                    'type'          => 'textarea',
+                    'placeholder'   =>"COMMENT ",
+                    'value'         => set_value('comment'),
+                    );
+
+                    echo form_textarea($data);
+                  ?>
+                  <?php echo form_error('comment', '<p>', '</p>') ?> 
+
+
+                  <?php $data = array(
+                    'name'          => 'submit',
+                    'value'         => 'Post Comment',
+                    'type'          => 'submit',
+                    'class'         => 'post-comment',
+                   );
+                  echo form_submit($data);
+                  ?>
                </div>
+               <?= form_close(); ?>
+
                
             </div>
             <div class="four columns" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
@@ -279,13 +311,15 @@
 })(jQuery);
 </script>
 
-<script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');         ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/socialmedia.js')  ;?>"></script>     
-<!-- ========================= End Document ========================= -->
-
+<script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');?>"></script>
 
 <!-- ========================= Share Button ========================= -->
+<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>
+<script type="text/javascript" src="<?=base_url('assets/js/socialmedia.js')  ;?>"></script>
+
+<!-- ========================= Comment System ========================= -->
+<script type="text/javascript" src="<?=base_url('assets/js/comment.js');?>"></script> 
+
 </body>
 </html>
 

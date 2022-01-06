@@ -1,4 +1,5 @@
 <?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Blog extends CI_Controller{
     
@@ -94,13 +95,15 @@ class Blog extends CI_Controller{
     {   
         $this->load->helper('form');
         $this->load->model('articlesmodel');
+        $this->load->model('commentmodel');
         $articles=$this->articlesmodel->find($article_slug);
         $article_tag=$this->articlesmodel->find_article_tag($articles->id);
         $categories=$this->articlesmodel->category();
         $new_articles=$this->articlesmodel->topsix();
+        $comments=$this->commentmodel->article_comments($articles->id);
         $related_articles=$this->articlesmodel->related_articles($articles->categories);
         $this->add_count($article_slug);
-        $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'related_articles'=>$related_articles]);
+        $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'related_articles'=>$related_articles,'comments'=>$comments]);
     }
      
     public function category($category)
@@ -153,6 +156,33 @@ class Blog extends CI_Controller{
             $this->load->model('articlesmodel');
             $this->articlesmodel->update_counter(urldecode($article_slug));
         }
+    }
+    public function add_comments()
+    {
+        $this->load->helper('form');
+        $this->load->model('commentmodel');
+        $this->load->library('form_validation');
+        if($this->form_validation->run('comment_form_rules')){
+             
+            $post=$this->input->post();
+            $slug=$post['article_slug'];
+        
+             if($this->commentmodel->add_comments($post)){
+
+                 return redirect("blog/article/{$slug}");
+             }
+             else{
+
+                 return redirect("blog/article/{slug}");
+             }
+        }
+
+        else{
+            // return redirect('blog/article');
+            $post=$this->input->post();
+            $slug=$post['article_slug'];
+            return redirect("blog/article/{$slug}");
+        } 
     }
 
 }

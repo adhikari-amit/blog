@@ -108,7 +108,7 @@ $config=[
       ],
        
 
-        'category_form_rules' =>[
+      'category_form_rules' =>[
 
              [
               'field'=>'title',
@@ -120,6 +120,27 @@ $config=[
               'field'=>'desc',
               'label'=>'Description',
               'rules'=>'required'
+             ]                   
+      ],
+
+      'comment_form_rules' =>[
+
+             [
+              'field'=>'name',
+              'label'=>'Name',
+              'rules'=>'required|alpha_numeric_spaces'
+             ],
+
+             [
+              'field'=>'email',
+              'label'=>'Email',
+              'rules'=>'required|valid_email'
+             ],
+
+             [
+              'field'=>'comment',
+              'label'=>'Comment',
+              'rules'=>'alpha_numeric_spaces'
              ]                   
       ]
 

@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>Clymene</title>
+  <title>Articulos</title>
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -258,6 +258,4 @@
 
 <script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');         ?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>     
-<!-- ========================= End Document ========================= -->
-
 </body></html>
