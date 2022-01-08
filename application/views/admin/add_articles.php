@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Articles</title>
 	<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap-tagsinput.css'); ?>" >
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/tagsinput.css'); ?>" >
   <script type="text/javascript" src="<?=base_url('ckeditor/ckeditor.js');?>"> </script>
 
 </head>
@@ -160,10 +160,10 @@
         
         <!-- <input type="text" data-role="tagsinput"></input> -->
         <div class="form-group">
-        <label  class="form-label mt-4">Slug</label>
+        <label  class="form-label mt-4">Tag</label>
          <?php $data = array(
             'name'          => 'tag',
-            'id'            => 'tag',
+            'id'            => 'tags_1',
             'class'         =>'form-control',
             'placeholder'   =>"Tag",
             'data-role'     =>'tagsinput',
@@ -227,13 +227,20 @@
   </script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap-tagsinput.min.js');?>"> </script>
-
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<script>
+  
+  $(document).ready(function(){
+    $('#tags_1').tagsInput({
+      width:'auto'
+    });
+    $("input").val()
+  })
+</script>
+
+<script type="text/javascript" src="<?= base_url('assets/js/tagsinput.js');?>"> </script>
+
 </body>
 </html>
 

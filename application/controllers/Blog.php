@@ -33,7 +33,8 @@ class Blog extends CI_Controller{
         $articles=$this->articlesmodel->allarticle_list($config['per_page'],$this->uri->segment(3));
         $new_articles=$this->articlesmodel->topsix();
         $categories=$this->articlesmodel->category();
-        $this->load->view('public/articles',['articles'=>$articles,'categories'=>$categories,'new_articles'=>$new_articles]);
+        $tags=$this->articlesmodel->tags();
+        $this->load->view('public/articles',['articles'=>$articles,'categories'=>$categories,'new_articles'=>$new_articles,'tags'=>$tags]);
 
     }
 
@@ -52,13 +53,13 @@ class Blog extends CI_Controller{
             return redirect ("blog/search/$query");
         }
         else{
-            return redirect("blog/index");
+            return redirect("blog");
         }
     }
 
-    public function search($query)
+    public function search($query="")
     {
-
+        if($query){
         $this->load->helper('form');
         $this->load->model('articlesmodel');
         $this->load->library('pagination');
@@ -87,12 +88,16 @@ class Blog extends CI_Controller{
         $new_articles=$this->articlesmodel->topsix();
         $categories=$this->articlesmodel->category();
         $this->load->view('public/result',['articles'=>$articles,'categories'=>$categories,'new_articles'=>$new_articles]);
-
+      }
+      else{
+        return redirect('blog');
+      }
     }
 
 
-    public function article($article_slug)
+    public function article($article_slug="")
     {   
+        if($article_slug){
         $this->load->helper('form');
         $this->load->model('articlesmodel');
         $this->load->model('commentmodel');
@@ -104,10 +109,16 @@ class Blog extends CI_Controller{
         $related_articles=$this->articlesmodel->related_articles($articles->categories);
         $this->add_count($article_slug);
         $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'related_articles'=>$related_articles,'comments'=>$comments]);
-    }
+      }
+      else{
+        return redirect('blog');
+      }
+}
+
      
-    public function category($category)
-    {
+    public function category($category="")
+    {   
+        if($category){
         $this->load->helper('form');
         $this->load->model('articlesmodel');
         $this->load->library('pagination');
@@ -136,9 +147,14 @@ class Blog extends CI_Controller{
         $new_articles=$this->articlesmodel->topsix();
         $categories=$this->articlesmodel->category();
         $this->load->view('public/articles',['articles'=>$articles,'categories'=>$categories,'new_articles'=>$new_articles]);
+       }
+       else{
+
+        return redirect('blog');
+       }
     }
   
-    function add_count($article_slug)
+    private function add_count($article_slug)
     {
    
         $this->load->helper('cookie');
@@ -165,23 +181,26 @@ class Blog extends CI_Controller{
         if($this->form_validation->run('comment_form_rules')){
              
             $post=$this->input->post();
-            $slug=$post['article_slug'];
-        
-             if($this->commentmodel->add_comments($post)){
-
-                 return redirect("blog/article/{$slug}");
-             }
-             else{
-
-                 return redirect("blog/article/{slug}");
-             }
+            $slug=$post['article_slug'];        
+            $this->commentmodel->add_comments($post);
+            return redirect("blog/article/{$slug}");
         }
 
         else{
-            // return redirect('blog/article');
+           
             $post=$this->input->post();
-            $slug=$post['article_slug'];
-            return redirect("blog/article/{$slug}");
+            $article_slug=$post['article_slug'];
+            $this->load->helper('form');
+            $this->load->model('articlesmodel');
+            $this->load->model('commentmodel');
+            $articles=$this->articlesmodel->find($article_slug);
+            $article_tag=$this->articlesmodel->find_article_tag($articles->id);
+            $categories=$this->articlesmodel->category();
+            $new_articles=$this->articlesmodel->topsix();
+            $comments=$this->commentmodel->article_comments($articles->id);
+            $related_articles=$this->articlesmodel->related_articles($articles->categories);
+            $this->add_count($article_slug);
+            $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'related_articles'=>$related_articles,'comments'=>$comments]);
         } 
     }
 

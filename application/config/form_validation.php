@@ -140,7 +140,7 @@ $config=[
              [
               'field'=>'comment',
               'label'=>'Comment',
-              'rules'=>'alpha_numeric_spaces'
+              'rules'=>'required|min_length[5]|max_length[5000]'
              ]                   
       ]
 

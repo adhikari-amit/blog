@@ -69,7 +69,6 @@ class Admin extends CI_Controller {
              
              $post=$this->input->post();             
              $data=$this->upload->data();
-
              $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
 
              $post['image_path']=$image_path;

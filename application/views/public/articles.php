@@ -95,7 +95,7 @@
                 <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
                   <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
                     <div class="blog-box-1 grey-section">
-                      <img src="<?= $article->image_path ?>" alt=" ">
+                      <img src="<?= $article->image_path ?>" alt="...">
                       <div class="blog-date-1"><?=$article->created_at ?></div>
                       <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
                       <h6><?=$article->title ?></h6>
@@ -138,22 +138,10 @@
             
             <div class="separator-sidebar"></div>
             <h6>tags</h6>
+            <?php foreach($tags as $t): ?>
             <ul class="link-tag">
-              <li><a href="#">Art</a></li>  
-              <li><a href="#">Articles</a></li>  
-              <li><a href="#">Audio</a></li> 
-              <li><a href="#">Business</a></li>  
-              <li><a href="#">Culture</a> </li> 
-              <li><a href="#">Development</a> </li> 
-              <li><a href="#">Ecology</a></li>  
-              <li><a href="#">Events</a> </li> 
-              <li><a href="#">Information</a> </li> 
-              <li><a href="#">Inspiration</a></li>  
-              <li><a href="#">Nature</a> </li> 
-              <li><a href="#">Opportunities</a> </li> 
-              <li><a href="#">Science</a> </li> 
-              <li><a href="#">Trends</a> </li> 
-              <li><a href="#">Video</a></li> 
+              <li><a href="#"><?=($t->tag);?></a></li>  
+             <?php endforeach ?>  
             </ul>
           </div>
         </div>

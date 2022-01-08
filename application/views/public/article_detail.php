@@ -64,11 +64,17 @@
             
                <div class="blog-big-wrapper grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
                   <div class="big-post-date"><span>&#x1F4C5;</span> <?= $article->created_at; ?></div>
-                  <img src="<?=$article->image_path; ?>" alt="">
+                  <img src="<?=$article->image_path; ?>" alt="...">
                   <?= htmlspecialchars_decode($article->body) ?>             
                </div>   
                <div class="post-tags-categ grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <p>Category: <a href="#"><?=$article->categories?></a>,<span>|</span>Tags: <a href="#"><?= ($article_tag->tag)  ?></a></p>
+                  <p>Category: <a href="#"><?=$article->categories?></a>,<span>|</span>Tags: 
+
+                    <?php foreach($article_tag as $tags): ?>
+                     <a href="#">#<?= $tags->tag ?>,</a>
+                  <?php endforeach ?>
+               </p>
+                     
                </div>   
                <div class="post-content-share grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
                   <div class="social-share">
@@ -93,7 +99,7 @@
                </div>
 
                <div class="post-content-com-top grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">   
-                  <p>COMMENTS <span>(3)</span></p>
+                  <p>COMMENTS <span>(<?php echo count($comments) ?>)</span></p>
                </div>
                   
                <?php foreach ($comments as $comment): ?>

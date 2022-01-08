@@ -86,15 +86,31 @@ class Articlesmodel extends CI_Model{
         $image_path=$array['image_path'];
         $slug=$array['slug'];
         $tag=$array['tag'];
+        $tags=explode(',',$tag);
+
         $this->db->insert('articles',['title'=>$title,'author'=>$author,'categories'=>$category,'description'=>$description,'slug'=>$slug,'body'=>$body,'user_id'=>$user_id,'created_at'=>$created_at,'image_path'=>$image_path]);
 
         $this->db->where('title', $title);
         $this->db->select('id');
         $count = $this->db->get('articles')->row();
-        $this->db->insert('article_tag',['article_id' => $count->id,'tag'=>$tag]);
+
+        foreach($tags as $t){
+        $this->db->insert('article_tag',['article_id' => $count->id,'tag'=>$t]);
+
+        }
         return TRUE;
     }
+    
 
+    public function tags(){
+        
+        $query=$this->db
+                     ->distinct()
+                     ->select('tag')
+                     ->from('article_tag')
+                     ->get();
+        return $query->result();             
+    }
 
     public function find_article($article_id)
     {
@@ -108,11 +124,12 @@ class Articlesmodel extends CI_Model{
     public function find_article_tag($article_id)
     {
          $query=$this->db
+                     ->select('tag')
                      ->from('article_tag')
                      ->where('article_id',$article_id)
                      ->get();
 
-        return $query->row();     
+        return $query->result();     
 
     }
 
