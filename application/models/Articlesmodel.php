@@ -123,26 +123,40 @@ class Articlesmodel extends CI_Model{
     }
     public function find_article_tag($article_id)
     {
-         $query=$this->db
-                     ->select('tag')
-                     ->from('article_tag')
-                     ->where('article_id',$article_id)
-                     ->get();
+        $query=$this->db
+                    ->select('tag')
+                    ->from('article_tag')
+                    ->where('article_id',$article_id)
+                    ->get();
 
         return $query->result();     
 
     }
 
-    public function update_article($article)
+    public function update_article($array)
     { 
 
-        $article_id=$article['article_id'];
-        $title=$article['title'];
-        $body=$article['article'];
-       
-        return  $this->db  
-                    ->where('id',$article_id)
-                    ->update('articles',['title'=>$title,'body'=>$body]);                              
+        $article_id=$array['article_id'];
+        $title=$array['title'];
+        $body=$array['article'];
+        $author=$array['author'];
+        $description=$array['desc'];
+        $category=$array['category'];
+        $created_at=$array['created_at'];
+        $image_path=$array['image_path'];
+        $tag=$array['tag'];
+        $this->db  
+            ->where('id',$article_id)
+            ->update('articles',['title'=>$title,'author'=>$author,'categories'=>$category,'description'=>$description,'body'=>$body,'created_at'=>$created_at,'image_path'=>$image_path]);
+     
+        if($tag){
+        $tags=explode(',',$tag);
+        foreach($tags as $t){
+        $this->db->insert('article_tag',['article_id' => $article_id,'tag'=>$t]);
+
+        }
+    }
+        return TRUE;                     
     }
 
 

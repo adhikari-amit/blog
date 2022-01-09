@@ -73,6 +73,7 @@ $config=[
                     'label' =>'Category',
                     'rules' =>'required',
                   ],
+                 
        ],
 
 

@@ -5,24 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Articles</title>
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="text/javascript" src="<?=base_url('ckeditor/ckeditor.js');?>"> </script>
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/tagsinput.css'); ?>" >
+  <script type="text/javascript" src="<?=base_url('ckeditor/ckeditor.js');?>"> </script>
 
 </head>
-
 <body>
-   <? php include("admin_header.php"); ?>
-
-
-    
-    <div class="container my-5">
-      <!-- <form> -->
-      <?php echo form_open('admin/update_article'); ?>
+   <?php include("admin_header.php"); ?>
+  
+    <div class="container my-5">      
+      <?php echo form_open_multipart('admin/update_article'); ?>
       <?php echo form_hidden('article_id',($article->id )); ?>
-      
 
-      
-       <!-- This is Flash data for successfully inserting Article -->
         <?php  if($faliure=$this->session->flashdata('faliure')): ?>
             <div class="alert alert-dismissible alert-success">
               <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -35,13 +28,13 @@
         <legend>Edit Article</legend>
 
         <div class="form-group">
-          <label  class="form-label mt-4">Title</label>
+        <label  class="form-label mt-4">Title</label>
          <?php $data = array(
             'name'          => 'title',
             'id'            => 'title',
             'class'         =>'form-control',
-            'placeholder'=>"Title of the Article",
-            'value' => set_value('title',$article->title),
+            'placeholder'   =>"Title of the Article",
+            'value'         => set_value('title',$article->title),
             );
 
             echo form_input($data);
@@ -50,7 +43,7 @@
 
         </div>
 
-          <div class="form-group">
+        <div class="form-group">
         <label  class="form-label mt-4">Description</label>
          <?php $data = array(
             'name'          => 'desc',
@@ -67,7 +60,7 @@
 
         </div>
         
-          <div class="form-group">
+        <div class="form-group">
         <label  class="form-label mt-4">Author</label>
         <?php
 
@@ -135,15 +128,15 @@
          <div class="form-group">
           <label  class="form-label mt-4">Image</label>
          <?php $data = array(
-            'name'          => 'image',          
-            'class'         =>'form-control',
-            'value'         => set_value('image',$article->image_path),        
+            'name'          =>'image',
+            // 'id'            =>'image',          
+            'class'         =>'form-control',       
             );
 
             echo form_upload($data);
          ?>
            <?php if(isset($upload_error)) echo $upload_error ?>
-
+           <?php echo form_error('image', '<p class="text-danger">', '</p>') ?>
         </div>
 
         <div class="form-group">
@@ -163,9 +156,23 @@
         <?php echo form_error('article', '<p class="text-danger">', '</p>') ?>
           
         </div>
-        <div class="d-grid gap-2 my-3">
-          <!-- <button class="btn btn-lg btn-primary" type="submit">Submit</button> -->
 
+        <div class="form-group">
+        <label  class="form-label mt-4">Tag</label>
+         <?php $data = array(
+            'name'          => 'tag',
+            'id'            => 'tags_1',
+            'class'         =>'form-control',
+            'placeholder'   =>"Tag",
+            'data-role'     =>'tagsinput',
+            'value'         => set_value('tag'),
+            );
+            echo form_input($data);
+         ?>
+        <?php echo form_error('tag', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+        <div class="d-grid gap-2 my-3">
           <?php $data = array(
             'name'          => 'add',
             'value'            => 'Edit Article',
@@ -178,16 +185,14 @@
         </div>
       </fieldset>
     
-    </form>
-
-    </div>
-
-
-
+     <?= form_close(); ?>
+  </div>
   
    <?php include("admin_footer.php"); ?>
 
- <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');   ?>"></script> 
+ <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');   ?>"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ 
  <script>
        CKEDITOR.replace( 'article',
                 {
@@ -199,6 +204,14 @@
                 }
              );
   </script>
-
+  <script>  
+  $(document).ready(function(){
+    $('#tags_1').tagsInput({
+      width:'auto'
+    });
+    $("input").val()
+  })
+</script>
+<script type="text/javascript" src="<?= base_url('assets/js/tagsinput.js');?>"> </script> 
 </body>
 </html>

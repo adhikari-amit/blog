@@ -72,8 +72,7 @@ class Admin extends CI_Controller {
              $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
 
              $post['image_path']=$image_path;
-             // print_r($post);
-             // exit;
+
              if($this->articlesmodel->add_article($post)){
                   
                  $this->session->set_flashdata('success',"Article Inserted Successfully"); 	
@@ -106,13 +105,30 @@ class Admin extends CI_Controller {
     
     public function update_article()
     {
-          
-    	$this->load->library('form_validation');
-    	if($this->form_validation->run('update_articles_rules')){
-             
-            $post=$this->input->post();
+        $config=[
 
-             if($this->articlesmodel->update_article($post)){
+        'upload_path' => './uploads/articles',
+        'allowed_types' =>'jpg|jpeg|png|gif',
+
+        ];
+        $this->load->library('upload',$config);  
+    	$this->load->library('form_validation');
+
+            //  $post=$this->input->post();  
+            // print_r($post);
+            // exit;
+
+    	if($this->form_validation->run('update_articles_rules') && $this->upload->do_upload('image')){
+
+            $post=$this->input->post();             
+            $data=$this->upload->data();
+            $image_path=base_url("uploads/articles/".$data['raw_name'].$data['file_ext']);
+            $post['image_path']=$image_path;
+            
+            // print_r($post);
+            // exit;
+
+            if($this->articlesmodel->update_article($post)){
                 
                  $this->session->set_flashdata('success',"Article Updated Successfully"); 	
                  return redirect('admin/dashboard');
@@ -131,7 +147,8 @@ class Admin extends CI_Controller {
     	   $category=$this->articlesmodel->category();
 	       $authors=$this->articlesmodel->authors();
 	       $article=$this->articlesmodel->find_article($article_id);
-	       $this->load->view('admin/edit_articles',['article'=>$article,'category'=>$category,'authors'=>$authors]);
+           $upload_error=$this->upload->display_errors();
+	       $this->load->view('admin/edit_articles',['upload_error'=> $upload_error,'article'=>$article,'category'=>$category,'authors'=>$authors]);
     	}
 
 

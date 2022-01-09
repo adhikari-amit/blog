@@ -123,8 +123,6 @@
 
         </div>
 
-
-
          <div class="form-group">
           <label  class="form-label mt-4">Image</label>
          <?php $data = array(
@@ -154,11 +152,10 @@
             echo form_textarea($data);
            ?>
 
-        <?php echo form_error('article', '<p class="text-danger">', '</p>') ?>
+         <?php echo form_error('article', '<p class="text-danger">', '</p>') ?>
           
         </div>
         
-        <!-- <input type="text" data-role="tagsinput"></input> -->
         <div class="form-group">
         <label  class="form-label mt-4">Tag</label>
          <?php $data = array(
@@ -205,15 +202,13 @@
         </div>
       </fieldset>
 
-
-
        <?= form_close(); ?>
     </div>
 
    <?php include("admin_footer.php"); ?>
 
  <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');?>"> </script>
- 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script>
        CKEDITOR.replace( 'article',
                 {
@@ -225,10 +220,6 @@
                 }
              );
   </script>
-
-
-<script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap-tagsinput.min.js');?>"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
   
   $(document).ready(function(){
