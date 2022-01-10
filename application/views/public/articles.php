@@ -15,8 +15,8 @@
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/skeleton.css');   ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/layout.css');     ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/settings.css');   ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/fontawesome.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/all.css');         ?>">
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/fontawesome.min.css'); ?>">
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/all.min.css');         ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/owl.css');        ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/retina.css');     ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/colorbox.css');   ?>">
@@ -41,32 +41,31 @@
   <!-- ========================== TOP SECTION ======================== -->  
       <section class="section parallax-section parallax-section-padding-top-bottom-pagetop section-page-top-title">
     
-      <div class="parallax-blog-2" style="background-position: 50% 0px;"></div>
+      <div class="parallax-blog-2"></div>
     
       <div class="container">
         <div class="eight columns">
-          <h1>blog, right sidebar</h1>
+          <h1>blog</h1>
         </div>
         <div class="eight columns">
-          <div id="owl-top-page-slider" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
-            <div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 3480px; left: 0px; display: block; transition: all 800ms ease 0s; transform: translate3d(-580px, 0px, 0px);"><div class="owl-item" style="width: 580px;"><div class="item">
+          <div id="owl-top-page-slider" class="owl-carousel owl-theme">
+            <div class="item">
               <div class="page-top-icon">&#xf0a1;</div>
-              <div class="page-top-text">77 posts</div>
-            </div></div><div class="owl-item" style="width: 580px;"><div class="item">
+              <div class="page-top-text"><?= $this->articlesmodel->numofrows_all_articles()?> posts</div>
+            </div>
+            <div class="item">
               <div class="page-top-icon">&#xf007;</div>
-              <div class="page-top-text">7 autors</div>
-            </div></div><div class="owl-item" style="width: 580px;"><div class="item">
-              <div class="page-top-icon">&#xf086;</div>
-              <div class="page-top-text">2472 comments</div>
-            </div></div></div></div>
-            
-            
-          <div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page"><span class=""></span></div><div class="owl-page active"><span class=""></span></div><div class="owl-page"><span class=""></span></div></div></div></div>
+              <div class="page-top-text"><?= count($this->articlesmodel->authors());?> Authors</div>
+            </div>
+            <div class="item">
+              <div class="page-top-icon"><i class="fas fa-list"></i></div>
+              <div class="page-top-text"><?php echo count($categories)?> Category</div>
+            </div>
+          </div>
         </div>
       </div>
         
     </section>  
-
   <!-- ========================= SECTION ========================= -->  
   
     <section class="section white-section section-padding-top-bottom">
@@ -75,11 +74,11 @@
         <div class="sixteen columns">
           <div id="portfolio-filter">
             <ul id="filter">
-              <li><a href="#" class="current" data-filter="*" title="">Show All</a></li>
-              <li><a href="#" data-filter=".photo" title="">Photo</a></li>
-              <li><a href="#" data-filter=".media" title="">Media</a></li>
-              <li><a href="#" data-filter=".news" title="">News</a></li>
-              <li><a href="#" data-filter=".links" title="">Links</a></li>
+              <li><a href="#" data-filter="*" title="">Show All</a></li>
+              <li><a href="#" data-filter=".horror" title="">Horror</a></li>
+              <li><a href="#" class="current" data-filter=".anime" title="">Anime</a></li>              
+              <li><a href="#" data-filter=".comedy" title="">Comedy</a></li>
+              <li><a href="#" data-filter=".thrill" title="">Thrill</a></li> 
             </ul>
           </div>
         </div>
@@ -90,13 +89,13 @@
         <div class="twelve columns remove-top">
           <div class="blog-wrapper">
             <div id="blog-grid-masonry" style="position: relative; overflow: hidden; height: 2004px;" class="isotope">
-              <?php if(! $articles == []): ?>  
-              <?php foreach ($articles as $article): ?>
+              <?php if(! $anime == []): ?>  
+              <?php foreach ($anime as $article): ?>
                 <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
-                  <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                  <div class="blog-box-3 half-blog-width anime isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
                     <div class="blog-box-1 grey-section">
                       <img src="<?= $article->image_path ?>" alt="...">
-                      <div class="blog-date-1"><?=$article->created_at ?></div>
+                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
                       <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
                       <h6><?=$article->title ?></h6>
                       <p><?=$article->description ?></p><div class="link">&#10149;</div>
@@ -104,26 +103,75 @@
                   </div>
                 </a>
              <?php endforeach; ?>
-             <?php else : ?>            
-              <a href='' class="animsition-link">
-                    <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
-                      <div class="blog-box-1 grey-section">
-                        <div class="blog-date-1">Sorry !!</div> 
-                        <h6>No articles to show</h6>
-                      </div>
-                    </div>
-              </a>
             <?php endif; ?>
+
+            <?php if(!$horror == []): ?>  
+              <?php foreach ($horror as $article): ?>
+                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
+                  <div class="blog-box-3 half-blog-width horror isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                    <div class="blog-box-1 grey-section">
+                      <img src="<?= $article->image_path ?>" alt="...">
+                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
+                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
+                      <h6><?=$article->title ?></h6>
+                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
+                    </div>
+                  </div>
+                </a>
+             <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if(!$comedy == []): ?>  
+              <?php foreach ($comedy as $article): ?>
+                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
+                  <div class="blog-box-3 half-blog-width comedy isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                    <div class="blog-box-1 grey-section">
+                      <img src="<?= $article->image_path ?>" alt="...">
+                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
+                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
+                      <h6><?=$article->title ?></h6>
+                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
+                    </div>
+                  </div>
+                </a>
+             <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if(!$thrill == []): ?>  
+              <?php foreach ($thrill as $article): ?>
+                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
+                  <div class="blog-box-3 half-blog-width thrill isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                    <div class="blog-box-1 grey-section">
+                      <img src="<?= $article->image_path ?>" alt="...">
+                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
+                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
+                      <h6><?=$article->title ?></h6>
+                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
+                    </div>
+                  </div>
+                </a>
+             <?php endforeach; ?>
+            <?php endif; ?> 
             </div>
           </div>
         </div>
-        <div class="four columns">
-          <div class="post-sidebar">
+        <div class="four columns" data-scroll-reveal="enter top-bottom move 200px over 1s after 0.3s">
+          <div class="post-sidebar"  >
+            <?php echo form_open('blog/search_item'); ?>
+            <?php $data = array(
+            'name'          => 'query',
+            'id'            => 'query',
+            'placeholder'   =>"type to search and hit enter",
+            'type'          =>"text",
+            'value' => set_value('query'),
+            );
+
+            echo form_input($data);          
+            ?>
+            <?= form_close(); ?>
             <div class="separator-sidebar"></div>
             <h6>Categories</h6>
             <ul class="link-recents">
               <?php foreach ($categories as $category): ?>
-                <li><a href='<?= base_url("blog/category/{$category->title}") ?>' ><?=$category->title ?></a></li>
+                <li><a href='<?= base_url("blog/category/{$category->title}");?>' ><?=$category->title ?></a></li>
               <?php endforeach; ?>
             </ul>
 
@@ -131,16 +179,22 @@
             <h6>recent posts</h6>
             <ul class="link-recents">
               <?php foreach ($new_articles as $newarticle): ?>
-              <li><a href='<?= base_url("blog/article/{$newarticle->slug}") ?>'><?= $newarticle->title ?></a></li>
+              <li><a href='<?= base_url("blog/article/{$newarticle->slug}");?>'><?= $newarticle->title ?></a></li>
                <?php endforeach; ?>
             </ul>
-            
-            
+             <div class="separator-sidebar"></div>
+              <h6>Most Viewed</h6>
+              <ul class="link-recents">
+               <?php foreach ($most_articles as $mostarticle): ?>
+                  <li><a href='<?= base_url("blog/article/{$mostarticle->slug}") ?>'><?= $mostarticle->title ?>(<?=$mostarticle->article_views ?>)</a></li>
+               <?php endforeach; ?>
+              </ul>  
+        
             <div class="separator-sidebar"></div>
             <h6>tags</h6>
-            <?php foreach($tags as $t): ?>
             <ul class="link-tag">
-              <li><a href="#"><?=($t->tag);?></a></li>  
+            <?php foreach($tags as $t): ?>
+              <li><a href="<?=base_url("blog/tag/{$t->tag}");?>"><?=($t->tag);?></a></li>  
              <?php endforeach ?>  
             </ul>
           </div>

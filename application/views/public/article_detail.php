@@ -15,8 +15,8 @@
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/skeleton.css');                    ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/layout.css');                      ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/settings.css');                    ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/fontawesome.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/all.css');         ?>">
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/fontawesome.min.css'); ?>">
+  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/all.min.css');         ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/owl.css');                         ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/retina.css');                      ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/colorbox.css');                    ?>">
@@ -44,7 +44,7 @@
             <div class="sixteen columns">
                <div class="section-title left">
                   <h1><?=$article->title ?></h1>
-                  <div class="subtitle left big">Autor:<?= $article->author ?></div>
+                  <div class="subtitle left big"><?= $article->author ?></div>
                   <br>
                   <p> <strong>Description:</strong><?=$article->description  ?> </p>
                   <br>
@@ -62,16 +62,16 @@
          <div class="container">
             <div class="twelve columns">
             
-               <div class="blog-big-wrapper grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <div class="big-post-date"><span>&#x1F4C5;</span> <?= $article->created_at; ?></div>
+               <div class="blog-big-wrapper grey-section">
+                  <div class="big-post-date"><i class="fas fa-calendar-days"></i><?= $article->created_at;?></div>
                   <img src="<?=$article->image_path; ?>" alt="...">
                   <?= htmlspecialchars_decode($article->body) ?>             
                </div>   
                <div class="post-tags-categ grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <p>Category: <a href="#"><?=$article->categories?></a>,<span>|</span>Tags: 
+                  <p>Category: <a href="#"><?=$article->categories?></a><span>|</span>Tags: 
 
-                    <?php foreach($article_tag as $tags): ?>
-                     <a href="#">#<?= $tags->tag ?>,</a>
+                    <?php foreach($article_tag as $item): ?>
+                     <a href="<?=base_url("blog/tag/{$item->tag}");?>">#<?= $item->tag ?> </a>
                   <?php endforeach ?>
                </p>
                      
@@ -82,17 +82,17 @@
                      <ul class="list-social-share">
                        
                         <li class="icon-soc-share">
-                           <a href="" target="_blank" class="facebook-btn">
+                           <a href="" target="_blank" class="facebook-btn" rel="noreferrer">
                               <i class="fab fa-facebook"></i>
                            </a>
                         </li>
                           <li class="icon-soc-share">
-                           <a href="" target="_blank" class="twitter-btn">
+                           <a href="" target="_blank" class="twitter-btn" rel="noreferrer">
                                <i class="fab fa-twitter"></i>
                            </a>
                         </li>
                         <li class="icon-soc-share">
-                           <a href="#" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i></a>
+                           <a href="#" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp" rel="noreferrer"></i></a>
                         </li>
                      </ul>
                   </div>            
@@ -104,14 +104,15 @@
                   
                <?php foreach ($comments as $comment): ?>
                <div class="post-content-comment grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <h6><?=$comment->user_name ?></h6>   
+                  <h6><?=$comment->user_name ?></h6>
+                  <div class='blog-date-1'>Commented On: <?= $comment->createdOn?></div>     
                   <p><?= $comment->comments?></p>  
                </div>                  
               <?php endforeach ;?>
 
                <?php echo form_open('blog/add_comments'); ?> 
                <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
-                  <h6>LEAVE A REPLY</h6>
+                  <h6>LEAVE A COMMENT</h6>
                   <p>Your email address will not be published. Required fields are marked *</p>
                   <?php echo form_hidden('article_id',$article->id );?>
                   <?php echo form_hidden('time',date("Y/m/d")); ?>
@@ -167,6 +168,18 @@
             </div>
             <div class="four columns" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
                <div class="post-sidebar">
+                  <?php echo form_open('blog/search_item'); ?>
+                     <?php $data = array(
+                     'name'          => 'query',
+                     'id'            => 'query',
+                     'placeholder'   =>"type to search and hit enter",
+                     'type'          =>"text",
+                     'value' => set_value('query'),
+                     );
+
+                     echo form_input($data);          
+                     ?>
+                  <?= form_close(); ?>
                   <div class="separator-sidebar"></div>
                   <h6>Categories</h6>
                   <ul class="link-recents">
@@ -180,28 +193,20 @@
                      <?php foreach ($new_articles as $newarticle): ?>
                         <li><a href='<?= base_url("blog/article/{$newarticle->slug}") ?>'><?= $newarticle->title ?></a></li>
                      <?php endforeach; ?>
-                   </ul>
-                 
-                  
+                  </ul>
+                  <div class="separator-sidebar"></div>
+                  <h6>Most Viewed</h6>
+                  <ul class="link-recents">
+                   <?php foreach ($most_articles as $mostarticle): ?>
+                      <li><a href='<?= base_url("blog/article/{$mostarticle->slug}") ?>'><?= $mostarticle->title ?>(<?=$mostarticle->article_views ?>)</a></li>
+                   <?php endforeach; ?>
+                  </ul>             
                   <div class="separator-sidebar"></div>
                   <h6>tags</h6>
                   <ul class="link-tag">
-                     <li><a href="#">Analysis</a></li> 
-                     <li><a href="#">Art</a></li>  
-                     <li><a href="#">Articles</a></li>  
-                     <li><a href="#">Audio</a></li> 
-                     <li><a href="#">Business</a></li>  
-                     <li><a href="#">Culture</a> </li> 
-                     <li><a href="#">Development</a> </li> 
-                     <li><a href="#">Ecology</a></li>  
-                     <li><a href="#">Events</a> </li> 
-                     <li><a href="#">Information</a> </li> 
-                     <li><a href="#">Inspiration</a></li>  
-                     <li><a href="#">Nature</a> </li> 
-                     <li><a href="#">Opportunities</a> </li> 
-                     <li><a href="#">Science</a> </li> 
-                     <li><a href="#">Trends</a> </li> 
-                     <li><a href="#">Video</a></li> 
+                  <?php foreach($tags as $t): ?>
+                    <li><a href="<?=base_url("blog/tag/{$t->tag}");?>"><?=($t->tag);?></a></li>  
+                  <?php endforeach ?>  
                   </ul>
                </div>
             </div>
@@ -225,9 +230,8 @@
                   <div class="blog-box-1 white-section">
                      <img src="<?=$key->image_path ?>"  alt="">
                      <div class="blog-date-1"><?= $key->created_at?></div>
-                     <div class="blog-comm-1">3 <span>&#xf086;</span></div>
+                     <div class="blog-comm-1"><i class=" fas fa-eye"></i> <?=$key->article_views ?></div>
                      <h6><?=$key->title ?></h6>
-                     <P> <i class=" fas fa-eye"></i> <strong>Views:</strong> <?=$article->article_views ?> </P>
                      <div class="link">&#xf178;</div>
                   </div>
                </a>

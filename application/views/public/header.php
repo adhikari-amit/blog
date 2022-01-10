@@ -1,28 +1,4 @@
   <!-- ====================== Primary Page Layout ============================ -->  
-    
-    <!-- Switch Panel -->
-    <div id="switch">
-        <div class="content-switcher">        
-      <p>Color Options:</p>
-      <ul class="header">           
-        <li><a href="#" onclick="setActiveStyleSheet('1'); return false;" class="button color switch" style="background-color:#cfa144"></a></li>
-        <li><a href="#" onclick="setActiveStyleSheet('2'); return false;" class="button color switch" style="background-color:#9b59b6"></a></li>
-        <li><a href="#" onclick="setActiveStyleSheet('3'); return false;" class="button color switch" style="background-color:#2ecc71"></a></li>
-        <li><a href="#" onclick="setActiveStyleSheet('4'); return false;" class="button color switch" style="background-color:#e74c3c"></a></li>
-        <li><a href="#" onclick="setActiveStyleSheet('5'); return false;" class="button color switch" style="background-color:#34495e"></a></li> 
-        <li><a href="#" onclick="setActiveStyleSheet('6'); return false;" class="button color switch" style="background-color:#f1c40f"></a></li>
-        <li><a href="#" onclick="setActiveStyleSheet('7'); return false;" class="button color switch" style="background-color:#3498db"></a></li>
-      </ul>        
-      <div class="clear"></div>    
-      <div id="hide">
-        <img src="<?= base_url('assets/images/close.png');?>" alt=""> 
-      </div>
-        </div>
-  </div>
-  <div id="show" style="display: block;">
-        <div id="setting"></div>
-    </div>
-    <!-- Switch Panel --> 
       
   <!-- ======================== MENU ========================== -->  
   

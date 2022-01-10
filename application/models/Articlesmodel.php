@@ -23,6 +23,59 @@ class Articlesmodel extends CI_Model{
 
         return $query->result();    
    }
+   public function animearticle_list($limit,$offset)
+   {
+        $type='anime';
+        $query=$this->db
+                    -> from ('articles')
+                    ->where('categories',$type)
+                    ->limit($limit,$offset)
+                    ->order_by('created_at','DESC')
+                    ->get();
+
+        return $query->result();       
+   }
+
+   public function horrorarticle_list($limit,$offset)
+   {    
+
+        $type='horror';
+        $query=$this->db
+                    -> from ('articles')
+                    ->where('categories',$type)
+                    ->limit($limit,$offset)
+                    ->order_by('created_at','DESC')
+                    ->get();
+
+        return $query->result();    
+   }
+    public function comedyarticle_list($limit,$offset)
+   {    
+
+        $type='comedy';
+        $query=$this->db
+                    -> from ('articles')
+                    ->where('categories',$type)
+                    ->limit($limit,$offset)
+                    ->order_by('created_at','DESC')
+                    ->get();
+
+        return $query->result();    
+   }
+    public function thrillarticle_list($limit,$offset)
+   {    
+
+        $type='thrill';
+        $query=$this->db
+                    -> from ('articles')
+                    ->where('categories',$type)
+                    ->limit($limit,$offset)
+                    ->order_by('created_at','DESC')
+                    ->get();
+
+        return $query->result();    
+   }
+
    public function category_article($limit,$offset,$category)
    {
         $query=$this->db
@@ -169,6 +222,7 @@ class Articlesmodel extends CI_Model{
     public function topsix()
     {
         $q=$this->db
+                ->select(['title','slug'])
                 ->from('articles')
                 ->order_by('id','DESC') 
                 ->limit(6)
@@ -176,7 +230,18 @@ class Articlesmodel extends CI_Model{
                 
         return $q->result();            
     }
+    public function most_viewd_articles()
+    {
+        $q=$this->db
+                ->select(['title','slug','article_views'])
+                ->from('articles')
+                ->order_by('article_views','DESC') 
+                ->limit(6)
+                ->get();
+                
+        return $q->result();     
 
+    }
     public function search($query,$limit,$offset)
     {
 
@@ -204,12 +269,12 @@ class Articlesmodel extends CI_Model{
     {   
 
 
-        $this->db->where('slug', urldecode($slug));
-        $this->db->select('article_views');
+        $this->db->where('slug', urldecode($slug))
+                 ->select('article_views');
         $count = $this->db->get('articles')->row();
-        $this->db->where('slug', urldecode($slug));
-        $this->db->set('article_views', ($count->article_views + 1));
-        $this->db->update('articles');
+        $this->db->where('slug', urldecode($slug))
+                 ->set('article_views', ($count->article_views + 1))
+                 ->update('articles');
     }
 
     public function find($slug)
@@ -228,7 +293,21 @@ class Articlesmodel extends CI_Model{
               return false;
         }
     }
+   
 
+   public function searchvia_tag($tag,$limit,$offset)
+   {
+       $query=$this->db
+                    ->select('articles.*,article_tag.*')
+                    ->from('articles')
+                    ->where('tag',$tag)
+                    ->join('article_tag','article_tag.article_id= articles.id','natural')
+                    ->limit($limit,$offset)
+                    ->get();
+    
+       return $query->result(); 
+  
+   }
 
    public function authors()
    {

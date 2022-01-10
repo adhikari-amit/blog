@@ -128,8 +128,7 @@
          <div class="form-group">
           <label  class="form-label mt-4">Image</label>
          <?php $data = array(
-            'name'          =>'image',
-            // 'id'            =>'image',          
+            'name'          =>'image',      
             'class'         =>'form-control',       
             );
 

@@ -22,39 +22,16 @@
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/colorbox.css');   ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/animsition.css'); ?>">
   
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-gold.css');?>" title="1" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-2.css');   ?>"    title="2" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-3.css');   ?>"   title="3" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-4.css');   ?>"   title="4" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-5.css');   ?>"   title="5" disabled=""> 
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-6.css');   ?>"   title="6" disabled=""> 
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-7.css');   ?>"   title="7" disabled="">
-  
 </head>
 <body>
     <div class="animsition">
     <?php include("header.php"); ?>
       
-   <main class="cd-main-content">
-  
+    <main class="cd-main-content">
 
   <!--======================= SECTION =========================== -->  
-    <section class="section white-section section-padding-top-bottom">
-    
-      <div class="container">
-        <div class="sixteen columns">
-          <div id="portfolio-filter">
-            <ul id="filter">
-              <li><a href="#" class="current" data-filter="*" title="">Show All</a></li>
-              <li><a href="#" data-filter=".photo" title="">Photo</a></li>
-              <li><a href="#" data-filter=".media" title="">Media</a></li>
-              <li><a href="#" data-filter=".news" title="">News</a></li>
-              <li><a href="#" data-filter=".links" title="">Links</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      
+    <section class="section white-section section-home-padding-top">
+     
       <div class="clear"></div>      
       <div class="container">
         <div class="twelve columns remove-top">
@@ -65,9 +42,9 @@
               <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
                 <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
                   <div class="blog-box-1 grey-section">
-                    <!-- <img src="<?=$article->image_path ?>" alt=" "> -->
-                    <div class="blog-date-1"><?=$article->created_at  ?></div>
-                    <div class="blog-comm-1"><?=$article->article_views ?><span>&#128064;</span></div>
+                    <img src="<?=$article->image_path ?>" alt=" ">
+                    <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at  ?></div>
+                    <div class="blog-comm-1"><i class="fas fa-eye"></i><?=$article->article_views ?></div>
                     <h6><?=$article->title ?></h6>
                     <p><?=$article->description ?></p><div class="link">&#10149;</div>
                   </div>
@@ -75,7 +52,6 @@
               </a>
             <?php endforeach; ?>
           <?php else : ?>
-
             
           <a href='#' class="animsition-link">
                 <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
@@ -85,13 +61,26 @@
                   </div>
                 </div>
           </a>
-
           <?php endif; ?>
             </div>
           </div>
         </div>
-        <div class="four columns">
+        <div class="four columns" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
           <div class="post-sidebar">
+
+            <?php echo form_open('blog/search_item'); ?>
+            <?php $data = array(
+            'name'          => 'query',
+            'id'            => 'query',
+            'placeholder'   =>"type to search and hit enter",
+            'type'          =>"text",
+            'value' => set_value('query'),
+            );
+
+            echo form_input($data);          
+            ?>
+            <?= form_close(); ?>
+
             <div class="separator-sidebar"></div>
             <h6>Categories</h6>
             <ul class="link-recents">
@@ -107,26 +96,21 @@
               <li><a href='<?= base_url("blog/article/{$newarticle->slug}") ?>'><?= $newarticle->title ?></a></li>
                <?php endforeach; ?>
             </ul>
-            
-            
+
+            <div class="separator-sidebar"></div>
+            <h6>Most Viewed</h6>
+            <ul class="link-recents">
+             <?php foreach ($most_articles as $mostarticle): ?>
+                <li><a href='<?= base_url("blog/article/{$mostarticle->slug}") ?>'><?= $mostarticle->title ?>(<?=$mostarticle->article_views ?>)</a></li>
+             <?php endforeach; ?>
+            </ul>
+      
             <div class="separator-sidebar"></div>
             <h6>tags</h6>
             <ul class="link-tag">
-              <li><a href="#">Art</a></li>  
-              <li><a href="#">Articles</a></li>  
-              <li><a href="#">Audio</a></li> 
-              <li><a href="#">Business</a></li>  
-              <li><a href="#">Culture</a> </li> 
-              <li><a href="#">Development</a> </li> 
-              <li><a href="#">Ecology</a></li>  
-              <li><a href="#">Events</a> </li> 
-              <li><a href="#">Information</a> </li> 
-              <li><a href="#">Inspiration</a></li>  
-              <li><a href="#">Nature</a> </li> 
-              <li><a href="#">Opportunities</a> </li> 
-              <li><a href="#">Science</a> </li> 
-              <li><a href="#">Trends</a> </li> 
-              <li><a href="#">Video</a></li> 
+            <?php foreach($tags as $t): ?>
+              <li><a href="<?=base_url("blog/tag/{$t->tag}");?>"><?=($t->tag);?></a></li>  
+             <?php endforeach ?>  
             </ul>
           </div>
         </div>
