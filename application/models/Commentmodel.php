@@ -21,6 +21,14 @@
         
     }
 
+    public function add_subscriber($array){
+
+     $email=$array['email'];
+
+     return $this->db->insert('subscribers',['email'=>$email]);
+
+    }
+
   }
 
 

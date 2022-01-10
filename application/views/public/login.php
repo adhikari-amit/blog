@@ -22,14 +22,6 @@
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/colorbox.css');   ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/animsition.css'); ?>">
   
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-gold.css');?>" title="1" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-2.css');   ?>"    title="2" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-3.css');   ?>"   title="3" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-4.css');   ?>"   title="4" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-5.css');   ?>"   title="5" disabled=""> 
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-6.css');   ?>"   title="6" disabled=""> 
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-7.css');   ?>"   title="7" disabled="">
-  
 </head>
 
 <body>
@@ -163,8 +155,6 @@
       });
 })(jQuery);
 </script>
-
-<script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');         ?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>     
 <!-- ========================= End Document ========================= -->
 

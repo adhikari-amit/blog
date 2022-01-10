@@ -242,6 +242,17 @@ class Articlesmodel extends CI_Model{
         return $q->result();     
 
     }
+
+    public function total_view(){
+
+        $q=$this->db
+                ->select_sum('article_views')
+                ->from('articles') 
+                ->get();
+                
+        return $q->result(); 
+
+    }
     public function search($query,$limit,$offset)
     {
 
@@ -418,7 +429,6 @@ class Articlesmodel extends CI_Model{
               return false;
         }
    }
-
 
 
 }

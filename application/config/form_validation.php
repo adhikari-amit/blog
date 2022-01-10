@@ -143,7 +143,15 @@ $config=[
               'label'=>'Comment',
               'rules'=>'required|min_length[5]|max_length[5000]'
              ]                   
-      ]
+      ],
+
+     'subscribe_form_rules'=>[
+             [              
+              'field'=>'email',
+              'label'=>"Email",
+              'rules'=>"required|valid_email"
+             ]
+     ] 
 
 ];
 

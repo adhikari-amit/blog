@@ -22,14 +22,6 @@
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/colorbox.css');   ?>">
   <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/animsition.css'); ?>">
   
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-gold.css');?>" title="1" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-2.css');   ?>"    title="2" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-3.css');   ?>"   title="3" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-4.css');   ?>"   title="4" disabled="">
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-5.css');   ?>"   title="5" disabled=""> 
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-6.css');   ?>"   title="6" disabled=""> 
-  <link rel="alternate stylesheet" type="text/css" href="<?=base_url('assets/css/colors/color-7.css');   ?>"   title="7" disabled="">
-  
 </head>
 
 <body>  
@@ -37,8 +29,7 @@
    <?php include("header.php"); ?>
     
    <main class="cd-main-content">
-  
-  <!-- ========================== TOP SECTION ======================== -->  
+   <!-- ========================== TOP SECTION ======================== -->  
       <section class="section parallax-section parallax-section-padding-top-bottom-pagetop section-page-top-title">
     
       <div class="parallax-blog-2"></div>
@@ -54,8 +45,8 @@
               <div class="page-top-text"><?= $this->articlesmodel->numofrows_all_articles()?> posts</div>
             </div>
             <div class="item">
-              <div class="page-top-icon">&#xf007;</div>
-              <div class="page-top-text"><?= count($this->articlesmodel->authors());?> Authors</div>
+              <div class="page-top-icon"><i class="fas fa-eye"></i></div>
+              <div class="page-top-text"><?= $total_view ?> Views</div>
             </div>
             <div class="item">
               <div class="page-top-icon"><i class="fas fa-list"></i></div>
@@ -74,9 +65,9 @@
         <div class="sixteen columns">
           <div id="portfolio-filter">
             <ul id="filter">
-              <li><a href="#" data-filter="*" title="">Show All</a></li>
+              <li><a href="#" class="current" data-filter="*" title="">Show All</a></li>
               <li><a href="#" data-filter=".horror" title="">Horror</a></li>
-              <li><a href="#" class="current" data-filter=".anime" title="">Anime</a></li>              
+              <li><a href="#" data-filter=".anime" title="">Anime</a></li>              
               <li><a href="#" data-filter=".comedy" title="">Comedy</a></li>
               <li><a href="#" data-filter=".thrill" title="">Thrill</a></li> 
             </ul>
@@ -197,6 +188,31 @@
               <li><a href="<?=base_url("blog/tag/{$t->tag}");?>"><?=($t->tag);?></a></li>  
              <?php endforeach ?>  
             </ul>
+
+            <div class="separator-sidebar"></div>
+            <h6>Subscribe to Our Newslatter</h6>
+             <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s"> 
+              <?php echo form_open('blog/subscribe_to_newslatter'); ?>
+              <?php $data = array(
+              'name'          => 'email',
+              'id'            => 'email',
+              'placeholder'   =>"enter youre email",
+              'type'          =>"email",
+              'value' => set_value('email'),
+              );
+              echo form_input($data);          
+              ?>
+              <?php echo form_error('email', '<p>', '</p>') ?>
+              <?php $data = array(
+              'name'          => 'submit',
+              'value'         => 'Subscribe',
+              'type'          => 'submit',
+             );
+              echo form_submit($data);
+              ?>
+              <?= form_close(); ?>
+              </div>
+
           </div>
         </div>
       </div>
@@ -298,6 +314,5 @@
 })(jQuery);
 </script>
 
-<script type="text/javascript" src="<?=base_url('assets/js/styleswitcher.js');         ?>"></script>
 <script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>     
 </body></html>
