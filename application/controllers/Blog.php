@@ -29,15 +29,15 @@ class Blog extends CI_Controller{
         ];
         
         $this->pagination->initialize($config);
-        $anime=$this->articlesmodel->animearticle_list($config['per_page'],$this->uri->segment(3));
-        $horror=$this->articlesmodel->horrorarticle_list($config['per_page'],$this->uri->segment(3));
-        $thrill=$this->articlesmodel->thrillarticle_list($config['per_page'],$this->uri->segment(3));
-        $comedy=$this->articlesmodel->comedyarticle_list($config['per_page'],$this->uri->segment(3));
+        $anime=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'anime');
+        $horror=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'horror');
+        $thrill=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'thrill');
+        $comedy=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'comedy');
+        
         $new_articles=$this->articlesmodel->topsix();
         $mostviewed_articles=$this->articlesmodel->most_viewd_articles();
         $categories=$this->articlesmodel->category();
-        $total_view=$this->articlesmodel->total_view();
-        $view=$total_view[0]->article_views;
+        $view=$this->articlesmodel->total_view();
         $tags=$this->articlesmodel->tags();
         $this->load->view('public/articles',['anime'=>$anime,'horror'=>$horror,'thrill'=>$thrill,'comedy'=>$comedy,'categories'=>$categories,'new_articles'=>$new_articles,'most_articles'=>$mostviewed_articles,'tags'=>$tags,'total_view'=>$view]);
 
@@ -71,7 +71,7 @@ class Blog extends CI_Controller{
 
             'base_url'       => base_url("blog/search/$query"),
             'per_page'       => 8,
-            'total_rows'     =>$this->articlesmodel->numofrows_all_articles(),
+            'total_rows'     =>$this->articlesmodel->numofrows_searched_articles($query),
 
             'full_tag_open'  => "<div class='blog-left-right-links'>",  
             'full_tag_close' => "</div>",             
@@ -105,6 +105,7 @@ class Blog extends CI_Controller{
     {   
         if($article_slug){
         $articles=$this->articlesmodel->find($article_slug);
+        $author=$this->articlesmodel->find_article_author($articles->author);
         $article_tag=$this->articlesmodel->find_article_tag($articles->id);
         $categories=$this->articlesmodel->category();
         $new_articles=$this->articlesmodel->topsix();
@@ -113,7 +114,7 @@ class Blog extends CI_Controller{
         $comments=$this->commentmodel->article_comments($articles->id);
         $related_articles=$this->articlesmodel->related_articles($articles->categories);
         $this->add_count($article_slug);
-        $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'most_articles'=>$mostviewed_articles,'related_articles'=>$related_articles,'comments'=>$comments,'tags'=>$tags]);
+        $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'most_articles'=>$mostviewed_articles,'related_articles'=>$related_articles,'comments'=>$comments,'tags'=>$tags,'author'=>$author]);
       }
       else{
         return redirect('blog');
@@ -159,7 +160,19 @@ class Blog extends CI_Controller{
         return redirect('blog');
        }
     }
+    
+    public function author($slug="")
+    {
+        if($slug){
 
+            $author=$this->articlesmodel->find_author($slug);
+            $author_blog=$this->articlesmodel->find_author_blog($author->name);
+            $this->load->view('public/author',['author'=>$author,'author_blog'=>$author_blog]);
+        }
+        else{
+            return redirect('blog');
+        }
+    }
     public function tag($tags="")
     {
        if($tags){

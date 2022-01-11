@@ -46,7 +46,7 @@
             </div>
             <div class="item">
               <div class="page-top-icon"><i class="fas fa-eye"></i></div>
-              <div class="page-top-text"><?= $total_view ?> Views</div>
+              <div class="page-top-text"><?= $total_view->article_views ?> Views</div>
             </div>
             <div class="item">
               <div class="page-top-icon"><i class="fas fa-list"></i></div>
@@ -231,10 +231,9 @@
       
     </section>    
  
-    <?php include("footer.php"); ?>
 
   </main>   
-
+  <?php include("footer.php"); ?>
   <div class="scroll-to-top">&#xf106;</div>
   
   

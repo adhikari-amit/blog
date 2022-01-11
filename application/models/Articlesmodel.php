@@ -23,59 +23,7 @@ class Articlesmodel extends CI_Model{
 
         return $query->result();    
    }
-   public function animearticle_list($limit,$offset)
-   {
-        $type='anime';
-        $query=$this->db
-                    -> from ('articles')
-                    ->where('categories',$type)
-                    ->limit($limit,$offset)
-                    ->order_by('created_at','DESC')
-                    ->get();
-
-        return $query->result();       
-   }
-
-   public function horrorarticle_list($limit,$offset)
-   {    
-
-        $type='horror';
-        $query=$this->db
-                    -> from ('articles')
-                    ->where('categories',$type)
-                    ->limit($limit,$offset)
-                    ->order_by('created_at','DESC')
-                    ->get();
-
-        return $query->result();    
-   }
-    public function comedyarticle_list($limit,$offset)
-   {    
-
-        $type='comedy';
-        $query=$this->db
-                    -> from ('articles')
-                    ->where('categories',$type)
-                    ->limit($limit,$offset)
-                    ->order_by('created_at','DESC')
-                    ->get();
-
-        return $query->result();    
-   }
-    public function thrillarticle_list($limit,$offset)
-   {    
-
-        $type='thrill';
-        $query=$this->db
-                    -> from ('articles')
-                    ->where('categories',$type)
-                    ->limit($limit,$offset)
-                    ->order_by('created_at','DESC')
-                    ->get();
-
-        return $query->result();    
-   }
-
+  
    public function category_article($limit,$offset,$category)
    {
         $query=$this->db
@@ -250,7 +198,7 @@ class Articlesmodel extends CI_Model{
                 ->from('articles') 
                 ->get();
                 
-        return $q->result(); 
+        return $q->row(); 
 
     }
     public function search($query,$limit,$offset)
@@ -319,6 +267,23 @@ class Articlesmodel extends CI_Model{
        return $query->result(); 
   
    }
+    public function find_author_blog($name)
+   {
+       
+        $q=$this->db                    
+                ->from ('articles')
+                ->where(['author'=>$name])
+                ->get();
+        if($q->num_rows()){
+
+            return $q->result();
+        }        
+        else{
+
+              return false;
+        }
+   }
+
 
    public function authors()
    {
@@ -363,6 +328,18 @@ class Articlesmodel extends CI_Model{
               return false;
         }
    }
+    public function find_article_author($name){
+
+        $q=$this->db
+                ->from('author')
+                ->where('name',$name)
+                ->get();
+
+        return $q->row();        
+
+
+    }
+
     public function update_author($array)
     { 
 
@@ -377,6 +354,7 @@ class Articlesmodel extends CI_Model{
                     ->where('author_id',$author_id)
                     ->update('author',['name'=>$name,'instagram'=>$instagram,'facebook'=>$facebook,'twitter'=>$twitter,'bio'=>$bio,'image_path'=>$image_path]);                              
     }
+
 
    public function category()
    {

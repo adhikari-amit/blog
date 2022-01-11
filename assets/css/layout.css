@@ -2050,7 +2050,7 @@ video#video_background {
 /* #Embed Videos
 ================================================== */
 
-
+/*
 #thevideo{ 
 	display:none;
 }
@@ -2059,7 +2059,7 @@ video#video_background {
 	height:auto;
 	display:block;
 }
-
+*/
 
 
 /* #Tabs
@@ -3636,17 +3636,14 @@ xkeyframes
 }
 
 
-
-
-
-
  /* #Tooltip Shop
 ================================================== */
-
+/*
 .tooltip-shop {
 }
 
 /* Gap filler */
+
 .tooltip-shop::before {
 	content: '';
 	position: absolute;
@@ -3664,6 +3661,7 @@ xkeyframes
 }
 
 /* Tooltip */
+
 
 .tooltip-content-shop {
 	position: absolute;
@@ -4986,8 +4984,8 @@ a.quote-big-post-single h5:hover{
 	font-style: normal;
 }
 .blockquotes-1 img{ 
-	width:80px;
-	height:80px;
+	width:250px;
+	height:250px;
 	border-radius:50%;
 	margin:0 auto;
 	text-align:center;

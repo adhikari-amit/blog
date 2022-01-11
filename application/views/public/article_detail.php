@@ -35,8 +35,10 @@
          <div class="container">
             <div class="sixteen columns">
                <div class="section-title left">
-                  <h1><?=$article->title ?></h1>
-                  <div class="subtitle left big"><?= $article->author ?></div>
+                  <h1 ><?=$article->title ?></h1>
+                  <br>
+                  <a  style="color:blue;" href='<?= base_url("blog/author/{$author->slug}") ?>' class="subtitle left big"><?= $article->author ?></a>
+                  <br>
                   <br>
                   <p> <strong>Description:</strong><?=$article->description  ?> </p>
                   <br>
