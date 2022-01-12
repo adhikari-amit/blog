@@ -36,6 +36,18 @@ class Articlesmodel extends CI_Model{
         return $query->result();    
 
    }
+
+   public function numofrows_category_articles($category)
+    {
+        $q=$this->db
+                ->select(['title','id'])
+                ->from ('articles')
+                ->where('categories',$category)
+                ->get();
+
+        return $q->num_rows();   
+    }
+
     public function related_articles($category)
     {
         $query=$this->db
@@ -133,6 +145,7 @@ class Articlesmodel extends CI_Model{
         return $query->result();     
 
     }
+
 
     public function update_article($array)
     { 
@@ -276,14 +289,9 @@ class Articlesmodel extends CI_Model{
                 ->from ('articles')
                 ->where(['author'=>$name])
                 ->get();
-        if($q->num_rows()){
 
-            return $q->result();
-        }        
-        else{
-
-              return false;
-        }
+        return $q->result();
+     
    }
 
 
@@ -321,14 +329,8 @@ class Articlesmodel extends CI_Model{
                 -> from ('author')
                 -> where(['slug'=>$slug])
                 ->get();
-        if($q->num_rows()){
-
-            return $q->row();
-        }        
-        else{
-
-              return false;
-        }
+        return $q->row();
+ 
    }
     public function find_article_author($name){
 

@@ -27,9 +27,11 @@
 <body>  
    <div class="animsition" style="animation-duration: 1.5s; opacity: 1;">
    <?php include("header.php"); ?>
+    <?php if(!$author==[]): ?>
      <main class="cd-main-content">
       <br>
-   <section class="section grey-section section-padding-top-bottom"> 
+     
+      <section class="section grey-section section-padding-top-bottom"> 
       <div class="container">
         <div class="sixteen columns">
           <div class="section-title">
@@ -101,7 +103,19 @@
         </div>
       </div>
         
-    </section>  
+    </section> 
+    <?php else : ?>
+            
+          <a href='#' class="animsition-link">
+                <div class="blog-box-3 half-blog-width photo isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
+                  <div class="blog-box-1 grey-section">
+                    <div class="blog-date-1">Nothing to Show!!</div> 
+                    <h6>No articles Found</h6>
+                  </div>
+                </div>
+          </a>
+          <?php endif; ?> 
+
   
   </main>   
    <?php include("footer.php"); ?>
@@ -113,6 +127,7 @@
   
   
     
+  
   <!-- ======================= JAVASCRIPT =========================== -->
 <div class="fit-vids-style" id="fit-vids-style" style="display: none;">­<style>.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></div>
 <script type="text/javascript" src="<?=base_url('assets/js/jquery-2.js');    ?>"></script>
@@ -185,7 +200,7 @@
 })(jQuery);
 </script>
 
-<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script> 
+<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>   
 <script type="text/javascript" src="<?=base_url('assets/js/owl.carousel.min.js');?>"></script>   
 <script type="text/javascript" src="<?=base_url('assets/js/custom-carousels.js');?>"></script>    
 </body></html>

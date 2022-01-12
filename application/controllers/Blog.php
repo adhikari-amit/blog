@@ -130,7 +130,7 @@ class Blog extends CI_Controller{
 
             'base_url'       => base_url("blog/category/$category"),
             'per_page'       => 8,
-            'total_rows'     =>$this->articlesmodel->numofrows_all_articles(),
+            'total_rows'     =>$this->articlesmodel->numofrows_category_articles($category),
 
             'full_tag_open'  => "<div class='blog-left-right-links'>",  
             'full_tag_close' => "</div>",             
@@ -163,10 +163,14 @@ class Blog extends CI_Controller{
     public function author($slug="")
     {
         if($slug){
-
             $author=$this->articlesmodel->find_author($slug);
+            if($author){
             $author_blog=$this->articlesmodel->find_author_blog($author->name);
             $this->load->view('public/author',['author'=>$author,'author_blog'=>$author_blog]);
+            }
+            else{
+                return redirect('blog');
+            }
         }
         else{
             return redirect('blog');
