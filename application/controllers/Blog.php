@@ -33,7 +33,6 @@ class Blog extends CI_Controller{
         $horror=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'horror');
         $thrill=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'thrill');
         $comedy=$this->articlesmodel->category_article($config['per_page'],$this->uri->segment(4),'comedy');
-        
         $new_articles=$this->articlesmodel->topsix();
         $mostviewed_articles=$this->articlesmodel->most_viewd_articles();
         $categories=$this->articlesmodel->category();

@@ -207,6 +207,7 @@ class Articlesmodel extends CI_Model{
         $q=$this->db
                 ->from('articles')
                 ->like('title',$query)
+                ->or_like('author',$query)
                 ->limit($limit,$offset)
                 ->get();
         return $q->result();
@@ -216,10 +217,11 @@ class Articlesmodel extends CI_Model{
     public function numofrows_searched_articles($query)
     {
         $q=$this->db
-                    ->select(['title','id'])
-                    -> from ('articles')
-                    -> like('title',$query)
-                    ->get();
+                ->select(['title','id'])
+                ->from ('articles')
+                ->like('title',$query)
+                ->or_like('author',$query)
+                ->get();
 
         return $q->num_rows();   
     }
@@ -407,7 +409,6 @@ class Articlesmodel extends CI_Model{
               return false;
         }
    }
-
 
 }
 

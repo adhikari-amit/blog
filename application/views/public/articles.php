@@ -192,7 +192,7 @@
             <div class="separator-sidebar"></div>
             <h6>Subscribe to Our Newslatter</h6>
              <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s"> 
-              <?php echo form_open('blog/subscribe_to_newslatter'); ?>
+              <?php echo form_open('blog/newslatter'); ?>
               <?php $data = array(
               'name'          => 'email',
               'id'            => 'email',

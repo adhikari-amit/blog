@@ -112,6 +112,30 @@
               <li><a href="<?=base_url("blog/tag/{$t->tag}");?>"><?=($t->tag);?></a></li>  
              <?php endforeach ?>  
             </ul>
+
+            <div class="separator-sidebar"></div>
+            <h6>Subscribe to Our Newslatter</h6>
+            <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s"> 
+              <?php echo form_open('blog/newslatter'); ?>
+              <?php $data = array(
+              'name'          => 'email',
+              'id'            => 'email',
+              'placeholder'   =>"enter youre email",
+              'type'          =>"email",
+              'value' => set_value('email'),
+              );
+              echo form_input($data);          
+              ?>
+              <?php echo form_error('email', '<p>', '</p>') ?>
+              <?php $data = array(
+              'name'          => 'submit',
+              'value'         => 'Subscribe',
+              'type'          => 'submit',
+             );
+              echo form_submit($data);
+              ?>
+              <?= form_close(); ?>
+            </div>
           </div>
         </div>
       </div>
