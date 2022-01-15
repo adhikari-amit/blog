@@ -133,12 +133,6 @@ $config=[
              ],
 
              [
-              'field'=>'email',
-              'label'=>'Email',
-              'rules'=>'required|valid_email'
-             ],
-
-             [
               'field'=>'comment',
               'label'=>'Comment',
               'rules'=>'required|min_length[5]|max_length[5000]'
@@ -149,7 +143,10 @@ $config=[
              [              
               'field'=>'email',
               'label'=>"Email",
-              'rules'=>"required|valid_email"
+              'rules'=>"required|valid_email|is_unique[subscribers.email]",
+              'errors' => array(
+                    'is_unique' => 'Email already Subsribed.'
+                )
              ]
      ] 
 

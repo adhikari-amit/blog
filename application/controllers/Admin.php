@@ -400,7 +400,67 @@ class Admin extends CI_Controller {
             return redirect('admin/category');
     	}
     }
+
+    public function subscriber()
+    {   
+
+        $this->load->library('pagination');
+        $this->load->model('commentmodel');
+        $config=[
+
+            'base_url'       => base_url('admin/subscriber'),
+            'per_page'       => 7,
+            'total_rows'     =>$this->commentmodel->numberof_subscribers(),
+
+            'full_tag_open'  => "<ul class='pagination pagination-sm'>",
+            'full_tag_close' =>"</ul>",             
+            
+            'prev_link'      =>'&laquo;',
+            'prev_tag_open'  => "<li class='page-item'>",
+            'prev_tag_close' =>'</li>',
+             
+            'next_link'      =>'&raquo;' ,
+            'next_tag_open'  => "<li class='page-item'>",
+            'next_tag_close' =>'</li>',
+
+
+            'num_tag_open'   => "<li class='page-item'>",
+            'num_tag_close'  =>"</li>",
+
+            'cur_tag_open'   => "<li class='page-item active'><a class='page-link'>",
+            'cur_tag_close'  =>"</a></li>",
+             
+            'attributes'   =>  array('class' => 'page-link'),
+        ];
+        
+        $this->pagination->initialize($config);
+        $subscribers=$this->commentmodel->subscribers($config['per_page'],$this->uri->segment(3));
+        $this->load->view('admin/subscribers',['subscribers'=>$subscribers]);
+
+    }
     
+
+    public function write_newslatter()
+    {
+       $this->load->view('admin/newslatter');
+    }
+
+    public function send_newslatter()
+    {   
+        $this->load->model('commentmodel'); 
+        $subscribers=$this->commentmodel->all_subscribers();
+        $post=$this->input->post();  
+        $this->load->library('email');
+        $this->email->from('adhikariamit2001@gmail.com', 'Amit');
+
+        foreach ($subscribers as $subscriber) {
+            $this->email->to($subscriber->email);
+            $this->email->subject($post['subject']);
+            $this->email->message($post['message']);
+            $this->email->send();
+        }
+
+    }
 	public function __construct()
 	{
 		parent::__construct();

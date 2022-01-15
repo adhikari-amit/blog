@@ -107,7 +107,7 @@
                <?php echo form_open('blog/add_comments'); ?> 
                <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s">
                   <h6>LEAVE A COMMENT</h6>
-                  <p>Your email address will not be published. Required fields are marked *</p>
+                  <p>Required fields are marked *</p>
                   <?php echo form_hidden('article_id',$article->id );?>
                   <?php echo form_hidden('time',date("Y/m/d")); ?>
                   <?php echo form_hidden('article_slug',$article->slug ); ?>
@@ -121,24 +121,14 @@
 
                     echo form_input($data);
                   ?>
-                  <?php echo form_error('name', '<p>', '</p>') ?> 
-                   <?php $data = array(
-                    'name'          => 'email',
-                    'id'            => 'email',
-                    'type'          => 'email',
-                    'placeholder'   =>"EMAIL *",
-                    'value'         => set_value('email'),
-                    );
 
-                    echo form_input($data);
-                  ?>
                   <?php echo form_error('email', '<p>', '</p>') ?>
                  
                   <?php $data = array(
                     'name'          => 'comment',
                     'id'            => 'comment',
                     'type'          => 'textarea',
-                    'placeholder'   =>"COMMENT ",
+                    'placeholder'   =>"COMMENT *",
                     'value'         => set_value('comment'),
                     );
 

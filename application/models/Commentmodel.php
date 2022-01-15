@@ -6,11 +6,10 @@
     {
         
         $name=$array['name'];
-        $email=$array['email'];
         $comment=$array['comment'];
         $article_id=$array['article_id'];
         $time=$array['time'] ;  
-        return $this->db->insert('comments',['user_name'=>$name,'email'=>$email,'comments'=>$comment,'createdOn'=>$time,'article_id'=>$article_id]);
+        return $this->db->insert('comments',['user_name'=>$name,'comments'=>$comment,'createdOn'=>$time,'article_id'=>$article_id]);
     }
     public function article_comments($id)
     {
@@ -27,6 +26,31 @@
 
      return $this->db->insert('subscribers',['email'=>$email]);
 
+    }
+
+    public function subscribers($limit,$offset)
+    {
+       $query=$this->db
+                   ->select('email')
+                   ->from('subscribers')
+                   ->limit($limit,$offset)
+                   ->get();
+        return $query->result();           
+    }
+    public function all_subscribers()
+    {
+       $query=$this->db
+                   ->select('email')
+                   ->from('subscribers')
+                   ->get();
+        return $query->result();           
+    }
+     public function numberof_subscribers()
+    {
+       $query=$this->db
+                   ->from('subscribers')
+                   ->get();
+        return $query->num_rows();           
     }
 
   }

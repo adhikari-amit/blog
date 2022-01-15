@@ -9,7 +9,7 @@
       <ul class="navbar-nav me-auto">
         
           <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('user')?>">Articles</a>
+            <a class="nav-link" href="<?= base_url('admin/subscriber')?>">Subscribe List</a>
           </li>
 
           <li class="nav-item">

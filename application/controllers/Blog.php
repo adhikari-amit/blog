@@ -116,6 +116,7 @@ class Blog extends CI_Controller{
         $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'most_articles'=>$mostviewed_articles,'related_articles'=>$related_articles,'comments'=>$comments,'tags'=>$tags,'author'=>$author]);
       }
       else{
+        print_r("NO!");
         return redirect('blog');
       }
     }
@@ -248,14 +249,7 @@ class Blog extends CI_Controller{
            
             $post=$this->input->post();
             $article_slug=$post['article_slug'];
-            $articles=$this->articlesmodel->find($article_slug);
-            $article_tag=$this->articlesmodel->find_article_tag($articles->id);
-            $categories=$this->articlesmodel->category();
-            $new_articles=$this->articlesmodel->topsix();
-            $comments=$this->commentmodel->article_comments($articles->id);
-            $related_articles=$this->articlesmodel->related_articles($articles->categories);
-            $this->add_count($article_slug);
-            $this->load->view('public/article_detail',['article'=>$articles,'article_tag'=>$article_tag,'categories'=>$categories,'new_articles'=>$new_articles,'related_articles'=>$related_articles,'comments'=>$comments]);
+            $this->article($article_slug);
         } 
     }
 
