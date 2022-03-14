@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Article Detail</title>
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
-
-</head>
+<?php include("admin_head.php"); ?>
 <body>
    <?php include("admin_header.php"); ?>
    <div class="container">
    <h1 class="my-5 ms-5"><?= $authors->name ?></h1>
-   <!-- <p class="my-5 ms-5">Published On: <?= date($article->created_at) ?></p> -->
-
 
    <div class="container">
     <p><?= $authors->bio ?></p>
+    <p><strong>Instagram:</strong>  <?= $authors->instagram ?></p>
+    <p><strong>Facebook:</strong>  <?= $authors->facebook ?></p>
+    <p> <strong>Twitter:</strong>  <?= $authors->twitter ?></p>
    </div>
 
    <?php if(! is_null($authors->image_path)): ?>

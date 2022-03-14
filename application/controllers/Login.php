@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 
         $this->load->model("loginmodel");
         $login_id=$this->loginmodel->validate_login($username,$password);
-
+ 
         if($login_id)
         {
 
@@ -54,4 +54,12 @@ class Login extends CI_Controller {
 	    $this->session->unset_userdata('user_id');
 	    return redirect('login');
 	}
+
+  public function __construct()
+  {
+
+  parent::__construct();
+  $this->load->model('socialmodel');
+  }
+
 }

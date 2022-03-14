@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Articles</title>
-	<link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/bootstrap.min.css'); ?>" >
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/tagsinput.css'); ?>" >
-  <script type="text/javascript" src="<?=base_url('ckeditor/ckeditor.js');?>"> </script>
-
-</head>
+<?php include("admin_head.php"); ?>
 <body>
    <?php include("admin_header.php"); ?>
     
@@ -65,6 +55,7 @@
         <?php
 
         $options = array();
+        $options[1]="";
         foreach ($authors as $author)
         {
          $options[$author->name] = $author->name;
@@ -86,11 +77,12 @@
         </div>
 
         <div class="form-group">
-        <label class="form-label mt-4">Categories</label>
+        <label class="form-label mt-4">Category 1</label>
 
        <?php 
 
         $options = array();
+        $options[1]="";
         foreach ($category as $category){
          $options[$category->title] = $category->title;
        }
@@ -105,6 +97,38 @@
             echo form_dropdown($data);
            ?>
            <?php echo form_error('category', '<p class="text-danger">', '</p>') ?>
+        </div>
+        
+        <div class="form-group">
+        <label class="form-label mt-4">Category 2</label>
+
+       <?php 
+         $data = array(
+            'name'          => 'category2',
+            'id'            => 'category2',
+            'class'         =>'form-control',
+            'value'         => set_value('category2'),
+            );
+           
+            echo form_input($data);
+           ?>
+           <?php echo form_error('category2', '<p class="text-danger">', '</p>') ?>
+        </div>
+        <div class="form-group">
+        <label class="form-label mt-4">Category 3</label>
+
+       <?php 
+
+         $data = array(
+            'name'          => 'category3',
+            'id'            => 'category3',
+            'class'         =>'form-control',
+            'value'         => set_value('category3'),
+            );
+           
+            echo form_input($data);
+           ?>
+           <?php echo form_error('category3', '<p class="text-danger">', '</p>') ?>
         </div>
 
         <div class="form-group">
@@ -188,6 +212,24 @@
         <?php echo form_error('slug', '<p class="text-danger">', '</p>') ?>
 
         </div>
+        
+        
+        <div class="form-group">
+        <label  class="form-label mt-4">Views</label>
+         <?php $data = array(
+            'name'          => 'view',
+            'id'            => 'view',
+            'class'         =>'form-control',
+            'placeholder'   =>"Enter View",
+            'value'         => set_value('view'),
+            );
+
+            echo form_input($data);
+         ?>
+        <?php echo form_error('view', '<p class="text-danger">', '</p>') ?>
+
+        </div>
+
 
         <div class="d-grid gap-2 my-3">
           <?php $data = array(
@@ -208,7 +250,8 @@
    <?php include("admin_footer.php"); ?>
 
  <script type="text/javascript" src="<?= base_url('assets/bootstrap/js/bootstrap.js');?>"> </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
+ <script type="text/javascript" src="<?=base_url('assets/js/jquery-3.2.1.min.js') ?>"></script>
   <script>
        CKEDITOR.replace( 'article',
                 {
@@ -234,5 +277,4 @@
 
 </body>
 </html>
-
 

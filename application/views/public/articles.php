@@ -1,317 +1,256 @@
-<!DOCTYPE html>
+<?php include('head.php'); ?>
 
-<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" lang="en">
+<body>
 
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>Articulos</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  <!-- ======================== CSS ========================== -->
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/base.css');       ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/skeleton.css');   ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/layout.css');     ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/settings.css');   ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/fontawesome.min.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/fontawesome/css/all.min.css');         ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/owl.css');        ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/retina.css');     ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/colorbox.css');   ?>">
-  <link rel="stylesheet" type="text/css" href="<?=base_url('assets/css/animsition.css'); ?>">
-  
-</head>
+  <?php include("header.php"); ?>
 
-<body>  
-   <div class="animsition" style="animation-duration: 1.5s; opacity: 1;">
-   <?php include("header.php"); ?>
-    
-   <main class="cd-main-content">
-   <!-- ========================== TOP SECTION ======================== -->  
-      <section class="section parallax-section parallax-section-padding-top-bottom-pagetop section-page-top-title">
-    
-      <div class="parallax-blog-2"></div>
-    
-      <div class="container">
-        <div class="eight columns">
-          <h1>blog</h1>
-        </div>
-        <div class="eight columns">
-          <div id="owl-top-page-slider" class="owl-carousel owl-theme">
-            <div class="item">
-              <div class="page-top-icon">&#xf0a1;</div>
-              <div class="page-top-text"><?= $this->articlesmodel->numofrows_all_articles()?> posts</div>
+  <!-- ========== Start Main Content ========== -->
+  <section class="main-content">
+
+    <!-- ========== Start Random Posts ========== -->
+    <div class="random-posts">
+      <?php foreach ($mostviewed_articles as $article) : ?>
+        <div class="item-box">
+          <div class="overlay">
+            <div class="post-thumbnail">
+              <a href="<?= base_url("article/{$article->slug}") ?>">
+                <img class="img-responsive" src="<?= $article->image_path ?>" alt="..." style="height:400px;">
+              </a>
             </div>
-            <div class="item">
-              <div class="page-top-icon"><i class="fas fa-eye"></i></div>
-              <div class="page-top-text"><?= $total_view->article_views ?> Views</div>
-            </div>
-            <div class="item">
-              <div class="page-top-icon"><i class="fas fa-list"></i></div>
-              <div class="page-top-text"><?php echo count($categories)?> Category</div>
-            </div>
-          </div>
-        </div>
-      </div>
-        
-    </section>  
-  <!-- ========================= SECTION ========================= -->  
-  
-    <section class="section white-section section-padding-top-bottom">
-    
-      <div class="container">
-        <div class="sixteen columns">
-          <div id="portfolio-filter">
-            <ul id="filter">
-              <li><a href="#" class="current" data-filter="*" title="">Show All</a></li>
-              <li><a href="#" data-filter=".horror" title="">Horror</a></li>
-              <li><a href="#" data-filter=".anime" title="">Anime</a></li>              
-              <li><a href="#" data-filter=".comedy" title="">Comedy</a></li>
-              <li><a href="#" data-filter=".thrill" title="">Thrill</a></li> 
-            </ul>
-          </div>
-        </div>
-      </div>
-      
-      <div class="clear"></div>      
-      <div class="container">
-        <div class="twelve columns remove-top">
-          <div class="blog-wrapper">
-            <div id="blog-grid-masonry" style="position: relative; overflow: hidden; height: 2004px;" class="isotope">
-              <?php if(! $anime == []): ?>  
-              <?php foreach ($anime as $article): ?>
-                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
-                  <div class="blog-box-3 half-blog-width anime isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
-                    <div class="blog-box-1 grey-section">
-                      <img src="<?= $article->image_path ?>" alt="...">
-                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
-                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
-                      <h6><?=$article->title ?></h6>
-                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
-                    </div>
-                  </div>
-                </a>
-             <?php endforeach; ?>
-            <?php endif; ?>
-
-            <?php if(!$horror == []): ?>  
-              <?php foreach ($horror as $article): ?>
-                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
-                  <div class="blog-box-3 half-blog-width horror isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
-                    <div class="blog-box-1 grey-section">
-                      <img src="<?= $article->image_path ?>" alt="...">
-                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
-                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
-                      <h6><?=$article->title ?></h6>
-                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
-                    </div>
-                  </div>
-                </a>
-             <?php endforeach; ?>
-            <?php endif; ?>
-            <?php if(!$comedy == []): ?>  
-              <?php foreach ($comedy as $article): ?>
-                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
-                  <div class="blog-box-3 half-blog-width comedy isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
-                    <div class="blog-box-1 grey-section">
-                      <img src="<?= $article->image_path ?>" alt="...">
-                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
-                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
-                      <h6><?=$article->title ?></h6>
-                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
-                    </div>
-                  </div>
-                </a>
-             <?php endforeach; ?>
-            <?php endif; ?>
-            <?php if(!$thrill == []): ?>  
-              <?php foreach ($thrill as $article): ?>
-                <a href='<?= base_url("blog/article/{$article->slug}") ?>' class="animsition-link">
-                  <div class="blog-box-3 half-blog-width thrill isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">              
-                    <div class="blog-box-1 grey-section">
-                      <img src="<?= $article->image_path ?>" alt="...">
-                      <div class="blog-date-1"><i class="fas fa-calendar-days"></i> <?=$article->created_at ?></div>
-                      <div class="blog-comm-1"><i class="fas fa-eye"></i> <?=$article->article_views ?><span></span></div>
-                      <h6><?=$article->title ?></h6>
-                      <p><?=$article->description ?></p><div class="link">&#10149;</div>
-                    </div>
-                  </div>
-                </a>
-             <?php endforeach; ?>
-            <?php endif; ?> 
-            </div>
-          </div>
-        </div>
-        <div class="four columns" data-scroll-reveal="enter top-bottom move 200px over 1s after 0.3s">
-          <div class="post-sidebar"  >
-            <?php echo form_open('blog/search_item'); ?>
-            <?php $data = array(
-            'name'          => 'query',
-            'id'            => 'query',
-            'placeholder'   =>"type to search and hit enter",
-            'type'          =>"text",
-            'value' => set_value('query'),
-            );
-
-            echo form_input($data);          
-            ?>
-            <?= form_close(); ?>
-            <div class="separator-sidebar"></div>
-            <h6>Categories</h6>
-            <ul class="link-recents">
-              <?php foreach ($categories as $category): ?>
-                <li><a href='<?= base_url("blog/category/{$category->title}");?>' ><?=$category->title ?></a></li>
-              <?php endforeach; ?>
-            </ul>
-
-            <div class="separator-sidebar"></div>
-            <h6>recent posts</h6>
-            <ul class="link-recents">
-              <?php foreach ($new_articles as $newarticle): ?>
-              <li><a href='<?= base_url("blog/article/{$newarticle->slug}");?>'><?= $newarticle->title ?></a></li>
-               <?php endforeach; ?>
-            </ul>
-             <div class="separator-sidebar"></div>
-              <h6>Most Viewed</h6>
-              <ul class="link-recents">
-               <?php foreach ($most_articles as $mostarticle): ?>
-                  <li><a href='<?= base_url("blog/article/{$mostarticle->slug}") ?>'><?= $mostarticle->title ?>(<?=$mostarticle->article_views ?>)</a></li>
-               <?php endforeach; ?>
-              </ul>  
-        
-            <div class="separator-sidebar"></div>
-            <h6>tags</h6>
-            <ul class="link-tag">
-            <?php foreach($tags as $t): ?>
-              <li><a href="<?=base_url("blog/tag/{$t->tag}");?>"><?=($t->tag);?></a></li>  
-             <?php endforeach ?>  
-            </ul>
-
-            <div class="separator-sidebar"></div>
-            <h6>Subscribe to Our Newslatter</h6>
-             <div class="leave-reply grey-section" data-scroll-reveal="enter bottom move 200px over 1s after 0.3s"> 
-              <?php echo form_open('blog/newslatter'); ?>
-              <?php $data = array(
-              'name'          => 'email',
-              'id'            => 'email',
-              'placeholder'   =>"enter youre email",
-              'type'          =>"email",
-              'value' => set_value('email'),
-              );
-              echo form_input($data);          
-              ?>
-              <?php echo form_error('email', '<p>', '</p>') ?>
-              <?php $data = array(
-              'name'          => 'submit',
-              'value'         => 'Subscribe',
-              'type'          => 'submit',
-             );
-              echo form_submit($data);
-              ?>
-              <?= form_close(); ?>
+            <div class="item-box-content">
+              <div class="categories">
+                <?php $category_slug = $this->articlesmodel->find_categoryslug($article->categories); ?>
+                <div class="post-category">
+                  <ul class="post-categories">
+                    <li>
+                      <a href="<?= base_url("category/{$category_slug->slug}"); ?>"><?= $article->categories ?></a>
+                    </li>
+                    <?php if ($article->category2) : ?>
+                      <li>
+                        <a><?= $article->category2 ?></a>
+                      </li>
+                    <?php endif ?>
+                    <?php if ($article->category3) : ?>
+                      <li>
+                        <a><?= $article->category3 ?></a>
+                      </li>
+                    <?php endif ?>
+                  </ul>
+                </div>
               </div>
+              <h3 class="post-title">
+                <a href="<?= base_url("article/{$article->slug}") ?>"><?= $article->title ?></a>
+              </h3>
+              <div class="author-info">
+                <?php $article_author = $this->articlesmodel->find_article_author($article->author); ?>
+                <span class="author-avatar">
+                  <a href='<?= base_url("author/{$article_author->slug}") ?>'><img class="#" src="<?= $article_author->image_path ?>" alt="..."></a>
+                </span>
+                <span class="author-name">
+                  <a href='<?= base_url("author/{$article_author->slug}") ?>'><?= $article->author; ?></a>
+                </span>
+              </div>
+              <span class="post-date">
+                <i class="fa fa-calendar"></i>
+                <a><?= $article->created_at; ?></a>
+              </span>
+              <span class="post-comments">
+                <i class="fa fa-eye"></i>
+                <a class="comment-url"><?= $article->article_views ?></a>
+              </span>
+            </div>
+          </div>
+        </div>
+      <?php endforeach ?>
+    </div>
+    <!-- ========== End Random Posts ========== -->
 
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <div class="row">
+            <?php foreach ($next_articles as $next_article) : ?>
+              <div class="col-sm-12">
+                <div class="post-item">
+                  <div class="post-thumbnail">
+                    <a href="<?= base_url("article/{$next_article->slug}") ?>">
+                      <img class="img-responsive" src="<?= $next_article->image_path ?>" alt="..." style="height: 500px; width:100%;">
+                    </a>
+                  </div>
+                  <div class="post-category">
+                    <?php $next_article_category_slug = $this->articlesmodel->find_categoryslug($next_article->categories); ?>
+                    <ul class="post-categories">
+                      <li>
+                        <a href="<?= base_url("category/{$next_article_category_slug->slug}"); ?>"><?= $next_article->categories ?></a>
+                      </li>
+                      <?php if ($next_article->category2) : ?>
+                        <li>
+                          <a><?= $next_article->category2 ?></a>
+                        </li>
+                      <?php endif ?>
+                      <?php if ($next_article->category3) : ?>
+                        <li>
+                          <a><?= $next_article->category3 ?></a>
+                        </li>
+                      <?php endif ?>
+
+                    </ul>
+                  </div>
+                  <div class="post-header">
+                    <h3 class="post-title">
+                      <a href="<?= base_url("article/{$next_article->slug}") ?>"><?= $next_article->title ?></a>
+                    </h3>
+                    <span class="post-date">
+                      <i class="fa fa-calendar"></i>
+                      <a><?= $next_article->created_at ?></a>
+                    </span>
+                    <span class="post-comments">
+                      <i class="fa fa-eye"></i>
+                      <a class="comment-url"><?= $next_article->article_views ?></a>
+                    </span>
+                  </div>
+                  <div class="post-content">
+                    <p><?= $next_article->description; ?></p>
+                  </div>
+                  <div class="post-footer">
+                    <div class="author-info pull-left">
+                      <?php $nextarticle_author = $this->articlesmodel->find_article_author($next_article->author); ?>
+                      <span class="author-avatar">
+                        <a href='<?= base_url("author/{$nextarticle_author->slug}") ?>'><img class="img-responsive" src="<?= $nextarticle_author->image_path ?>" alt="..."></a>
+                      </span>
+                      <span class="author-name">
+                        <a href='<?= base_url("author/{$nextarticle_author->slug}") ?>'><?= $next_article->author ?></a>
+                      </span>
+                    </div>
+                    <div class="read-more pull-right">
+                      <a href="<?= base_url("article/{$next_article->slug}") ?>">Continue Reading<i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach ?>
+          </div>
+
+          <!-- pagination -->
+
+          <div class="clearfix"></div>
+          <?= $this->pagination->create_links(); ?>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+          <div class="sidebar">
+
+            <div class="widget categories-widget">
+              <h3 class="widget-title">Categories</h3>
+              <?php foreach ($categories as $category) : ?>
+                <div class="category-item">
+                  <a href="<?= base_url("category/{$category->slug}"); ?>"><?= $category->title ?></a>
+                  <span class="count">(<?= $this->articlesmodel->numofarticles_category($category->title); ?>)</span>
+                </div>
+              <?php endforeach ?>
+            </div>
+            <div class="widget recent-posts-widget">
+              <h3 class="widget-title">Recent Posts</h3>
+              <?php foreach ($topfour as $topfour) : ?>
+                <div class="recent-post-item">
+                  <div class="recent-post-widget-thumbnail">
+                    <a href="<?= base_url("blog/article/{$topfour->slug}") ?>">
+                      <img class="img-responsive" src="<?= $topfour->image_path ?>" alt="...">
+                    </a>
+                  </div>
+                  <div class="recent-post-widget-content">
+                    <h4 class="recent-post-widget-title">
+                      <a href="<?= base_url("article/{$topfour->slug}"); ?>"><?= $topfour->title ?></a>
+                    </h4>
+                    <div class="recent-post-widget-info">
+                      <?php $topfour_author = $this->articlesmodel->find_article_author($topfour->author); ?>
+                      <span class="author">
+                        <i class="fa fa-edit"></i>
+                        <a href='<?= base_url("author/{$topfour_author->slug}") ?>'><?= $topfour->author ?></a>
+                      </span>
+                      <span class="date">
+                        <i class="fa fa-calendar"></i>
+                        <a><?= $topfour->created_at ?></a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach ?>
+            </div>
+            <div class="widget newsletter">
+              <div class="widget widget_mc4wp_form_widget">
+                <h3 class="widget-title">Subscribe</h3>
+                <?php echo form_open('blog/newslatter'); ?>
+                <label>Fill your email below to subscribe to our newsletter</label>
+                <?php echo form_error('email', '<p style="color:red">', '</p>') ?>
+                <?php $data = array(
+                  'name'          => 'email',
+                  'id'            => 'email',
+                  'placeholder'   => "enter youre email",
+                  'type'          => "email",
+                  'value' => set_value('email'),
+                );
+                echo form_input($data);
+                ?>
+                <?php $data = array(
+                  'name'          => 'submit',
+                  'value'         => 'Subscribe',
+                  'type'          => 'submit',
+                );
+                echo form_submit($data);
+                ?>
+
+                <?= form_close(); ?>
+              </div>
+            </div>
+            <div class="widget tags-widget">
+              <h3 class="widget-title">Tags</h3>
+              <ul class="tags-list list-unstyled">
+                <?php foreach ($tags as $tag) : ?>
+                  <li><a href="<?= base_url("tag/{$tag->tag_slug}"); ?>"><?= $tag->tag ?></a></li>
+                <?php endforeach ?>
+              </ul>
+            </div>
+            <div class="widget follow-widget">
+              <h3 class="widget-title">Follow Us</h3>
+              <ul class="social-icons-menu list-unstyled">
+                <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </section>    
-        
 
-  <!-- ========================= SECTION ========================= -->  
-  
-    <section class="section grey-section section-padding-top-bottom">
-    
-      <div class="container">
-        <div class="sixteen columns">
-           <?= $this->pagination->create_links(); ?>
-        </div>
+
+      <div class="category-owl">
+        <?php foreach ($categories as $category_item) : ?>
+          <div class="category-item" style="width: 50vw;">
+            <div class="category-bg" style="background-image: url('<?= $category_item->image_path ?>');"></div>
+            <div class="category-info">
+              <a href="<?= base_url("category/{$category_item->slug}"); ?>"><?= $category_item->title ?></a>
+              <span class="count"><?= $this->articlesmodel->numofarticles_category($category_item->title); ?></span>
+            </div>
+          </div>
+        <?php endforeach ?>
+
+
       </div>
-      
-    </section>    
- 
+  </section>
 
-  </main>   
-  <?php include("footer.php"); ?>
-  <div class="scroll-to-top">&#xf106;</div>
-  
-  
-  </div>
-  
-  
-    
-  <!-- ======================= JAVASCRIPT =========================== -->
-<div class="fit-vids-style" id="fit-vids-style" style="display: none;">­<style>.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></div>
-<script type="text/javascript" src="<?=base_url('assets/js/jquery-2.js');    ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/modernizr.js');  ?>"></script> 
-<script type="text/javascript" src="<?=base_url('assets/js/jquery_006.js'); ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/retina-1.js');   ?>"></script>   
-<script type="text/javascript" src="<?=base_url('assets/js/jquery_004.js'); ?>"></script>
-<script type="text/javascript">
-(function($) { "use strict";
-  $(document).ready(function() {
-    
-    $(".animsition").animsition({
-    
-    inClass               :   'zoom-in-sm',
-    outClass              :   'zoom-out-sm',
-    inDuration            :    1500,
-    outDuration           :    800,
-    linkElement           :   '.animsition-link', 
-    loading               :    true,
-    loadingParentElement  :   'body', //animsition wrapper element
-    loadingClass          :   'animsition-loading',
-    unSupportCss          : [ 'animation-duration', '-webkit-animation-duration','-o-animation-duration'],
-    //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser. 
-    //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
-    
-    overlay               :   false,
-    
-    overlayClass          :   'animsition-overlay-slide',
-    overlayParentElement  :   'body'
-    });
-  });  
-})(jQuery);
-</script>
-<script type="text/javascript" src="<?=base_url('assets/js/jquery_005.js'); ?>"></script> 
-<script type="text/javascript" src="<?=base_url('assets/js/jquery_003.js'); ?>"></script> 
-<script type="text/javascript">
-  $('.header-top').hidescroll();
-</script>
+  <!-- ========== End Main Content ========== -->
 
-<script type="text/javascript" src="<?=base_url('assets/js/jquery_002.js'); ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/owl.js'); ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/masonry.js'); ?>"></script> 
-<script type="text/javascript" src="<?=base_url('assets/js/isotope.js'); ?>"></script> 
-<script type="text/javascript" src="<?=base_url('assets/js/scrollReveal.js'); ?>"></script>
-<script type="text/javascript" src="<?=base_url('assets/js/jquery.js'); ?>"></script>
-<script type="text/javascript">
-(function($) { "use strict";
-      window.scrollReveal = new scrollReveal();
-})(jQuery);
-</script>
-<script type="text/javascript"> 
-(function($) { "use strict";          
-      jQuery(document).ready(function() {
-        var offset = 450;
-        var duration = 500;
-        jQuery(window).scroll(function() {
-          if (jQuery(this).scrollTop() > offset) {
-            jQuery('.scroll-to-top').fadeIn(duration);
-          } else {
-            jQuery('.scroll-to-top').fadeOut(duration);
-          }
-        });
-        
-        jQuery('.scroll-to-top').click(function(event) {
-          event.preventDefault();
-          jQuery('html, body').animate({scrollTop: 0}, duration);
-          return false;
-        })
-      });
-})(jQuery);
-</script>
+  <?php include('footer.php'); ?>
+  <!-- ========== Start Scroll To Top ========== -->
 
-<script type="text/javascript" src="<?=base_url('assets/js/custom-blog-grid-right.js');?>"></script>     
-</body></html>
+  <a href="#" class="scroll-top">
+    <span><i class="fa fa-arrow-up"></i></span>
+  </a>
+
+  <!-- ========== End Scroll To Top ========== -->
+  <?php include('foot.php'); ?>
+</body>
+
+</html>

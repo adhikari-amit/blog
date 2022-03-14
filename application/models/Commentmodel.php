@@ -6,7 +6,7 @@
     {
         
         $name=$array['name'];
-        $comment=$array['comment'];
+        $comment=htmlspecialchars($array['comment']); 
         $article_id=$array['article_id'];
         $time=$array['time'] ;  
         return $this->db->insert('comments',['user_name'=>$name,'comments'=>$comment,'createdOn'=>$time,'article_id'=>$article_id]);
